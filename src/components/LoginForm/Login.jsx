@@ -7,36 +7,23 @@ import "./Login.css";
 const LoginForm = () => {
   const onFinish = async (values) => {
     try {
-      const response = await axios.get(
-        "https://65b6310bda3a3c16ab0054ed.mockapi.io/artwork/api/v1/Users"
+      const response = await axios.post(
+        "http://localhost:8080/api/authenticate",
+        {
+          username: values.username,
+          password: values.password,
+          rememberMe: values.remember,
+        }
       );
 
       if (response && response.data) {
-        const user = response.data.find(
-          (item) => item.username === values.username
-        );
-
-        if (user) {
-          if (user.password === values.password) {
-            notification.open({
-              message: "Notification Title",
-              description: "Login successfully",
-            });
-          } else {
-            notification.open({
-              message: "Notification Title",
-              description: "Incorrect password",
-            });
-          }
-        } else {
-          notification.open({
-            message: "Notification Title",
-            description: "Username not found",
-          });
-        }
+        notification.open({
+          message: "Authenticate notification",
+          description: "Login success",
+        });
       } else {
         notification.open({
-          message: "Notification Title",
+          message: "Authenticate notification",
           description: "Error fetching user data",
         });
       }
@@ -47,10 +34,12 @@ const LoginForm = () => {
       }
     } catch (error) {
       console.log("Error:", error);
-      notification.open({
-        message: "Notification Title",
-        description: "An error occurred",
-      });
+      if (error.response.status == 401) {
+        notification.open({
+          message: "Authenticate notification",
+          description: "Wrong username or password",
+        });
+      }
     }
   };
   return (
