@@ -1,10 +1,10 @@
 import { Button, Card, Form, Input, Checkbox, notification } from "antd";
 import axios from "axios";
 import React from "react";
-import "./Login.css";
 
+import "./index.module.css";
 
-const LoginForm = () => {
+const index = () => {
   const onFinish = async (values) => {
     try {
       const response = await axios.post(
@@ -81,4 +81,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default index;
