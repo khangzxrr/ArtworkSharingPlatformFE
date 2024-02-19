@@ -2,7 +2,7 @@ import { Button, Card, Form, Input, Checkbox, notification } from "antd";
 import axios from "axios";
 import React from "react";
 
-import "./index.module.css";
+import styles from "./index.module.css";
 
 const index = () => {
   const onFinish = async (values) => {
@@ -43,7 +43,7 @@ const index = () => {
     }
   };
   return (
-    <div className="container">
+    <div className={styles.container}>
       <Card title="Login" className="card">
         <Form
           name="basic"
