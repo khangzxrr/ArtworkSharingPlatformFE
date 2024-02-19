@@ -1,49 +1,31 @@
 import { Button, Card, Form, Input, Checkbox, notification } from "antd";
-import axios from "axios";
 import React from "react";
 
 import styles from "./index.module.css";
+import { loginService } from "../../services/authenticationService";
+import { useAuthenticationStore } from "../../stores/authenticationStore";
+import { useNavigate } from "react-router-dom";
 
-const index = () => {
-  const onFinish = async (values) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/authenticate",
-        {
-          username: values.username,
-          password: values.password,
-          rememberMe: values.remember,
-        }
-      );
 
-      if (response && response.data) {
-        notification.open({
-          message: "Authenticate notification",
-          description: "Login success",
-        });
-      } else {
-        notification.open({
-          message: "Authenticate notification",
-          description: "Error fetching user data",
-        });
-      }
-      if (values.remember) {
-        console.log('checked');
-      } else{
-        console.log('unchecked');
-      }
-    } catch (error) {
-      console.log("Error:", error);
-      if (error.response.status == 401) {
-        notification.open({
-          message: "Authenticate notification",
-          description: "Wrong username or password",
-        });
-      }
-    }
+const Index = () => {
+  
+  const setAccessToken = useAuthenticationStore(state => state.setAccessToken)
+  const navigate = useNavigate()
+
+  const onFinish = async (fields) => {
+    loginService(fields.username, fields.password, fields.remember).then(response => {
+      console.log(response)
+      notification.info({ message: 'login succeed', description: 'you will be redirect in seconds...'})
+      setAccessToken(response) 
+      navigate('/logged-home')
+      
+    }).catch(err => {
+      console.log(err)
+      notification.error({ message: 'login failed', description: 'please check again' })
+    })
   };
+
   return (
-    <div className={styles.container}>
       <Card title="Login" className="card">
         <Form
           name="basic"
@@ -77,8 +59,7 @@ const index = () => {
           </Form.Item>
         </Form>
       </Card>
-    </div>
   );
 };
 
-export default index;
+export default Index;

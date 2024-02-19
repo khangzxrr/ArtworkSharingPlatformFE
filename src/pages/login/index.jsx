@@ -4,7 +4,7 @@ import { LoginForm } from "../../components";
 
 const index = () => {
     return (
-        <div>
+        <div className={styles.container}>
             <LoginForm />
         </div>
     )

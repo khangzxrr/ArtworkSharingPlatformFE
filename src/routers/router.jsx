@@ -1,6 +1,6 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import { Home, Login } from  '../pages';
+import { AuthenticationValidate, Home, LoggedHome, Login } from  '../pages';
 
 const Routers = createBrowserRouter([
     {
@@ -9,7 +9,16 @@ const Routers = createBrowserRouter([
     },
     {
         path: '/login',
-        element: <Login />
+        element: <Login />,
+    },
+    {
+        element: <AuthenticationValidate />,
+        children: [
+            {
+                path: '/logged-home',
+                element: <LoggedHome />
+            }
+        ]
     }
 ])
 export default Routers;
