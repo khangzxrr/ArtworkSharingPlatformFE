@@ -1,15 +1,11 @@
-import { useState } from 'react'
+import Routers from './routers/router'
 import './App.css'
-import LoginForm from './components/LoginForm/Login'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <LoginForm></LoginForm>
-    </>
-  )
+  <div style={{textAlign:'center', width:'100vw'}}>
+    <h1>Konnect with Ahsan</h1>
+    <Routers />
+  </div>
 }
 
 export default App
