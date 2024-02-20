@@ -5,10 +5,10 @@ import { LogoutButton } from '../../components'
 const index = () => {
   return (
     <div>
-      Logged Home Page 
-      <br/>
-      <LogoutButton />
-    </div>
+        Logged Home Page
+        <br />
+        <LogoutButton />
+      </div>
   )
 }
 
