@@ -1,6 +1,6 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import { AuthenticationValidate, Home, LoggedHome, Login } from  '../pages';
+import { AuthenticationValidate, Home, LoggedHome, Login, Profile, Request } from  '../pages';
 
 const Routers = createBrowserRouter([
     {
@@ -14,9 +14,17 @@ const Routers = createBrowserRouter([
     {
         element: <AuthenticationValidate />,
         children: [
+            // {
+            //     path: '/logged-home',
+            //     element: <LoggedHome />
+            // },
             {
-                path: '/logged-home',
-                element: <LoggedHome />
+                path: '/profile',
+                element: <Profile />
+            },
+            {
+                path: '/requests',
+                element: <Request />
             }
         ]
     }

@@ -17,7 +17,7 @@ const Index = () => {
       console.log(response)
       notification.info({ message: 'login succeed', description: 'you will be redirect in seconds...'})
       setAccessToken(response) 
-      navigate('/logged-home')
+      navigate('/profile')
       
     }).catch(err => {
       console.log(err)

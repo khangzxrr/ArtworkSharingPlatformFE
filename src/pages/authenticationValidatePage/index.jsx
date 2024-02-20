@@ -7,8 +7,6 @@ const Index = () => {
 
     const accessToken = useAuthenticationStore((state) => state.accessToken)
 
-    console.log(accessToken)
-
     return accessToken != undefined ? <LoggedLayout /> : <Navigate to='/login' />
 }
 

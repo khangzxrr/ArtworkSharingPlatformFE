@@ -1,16 +1,27 @@
 import { Button } from "antd";
 import React from "react";
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { LogoutButton } from "../../components";
 
 const { Header, Content, Footer } = Layout;
 
-const items = new Array(3).fill(null).map((_, index) => ({
-    key: String(index + 1),
-    label: `nav ${index + 1}`,
-  }));
-  
+
+const items = [
+    {
+        key: 'profile',
+        label: 'profile'
+    },
+    {
+        key: 'artworks',
+        label: 'artworks'
+    },
+    {
+        key: 'requests',
+        label: 'requests'
+    }
+]
+
 const Index = () => {
     return (
         <Layout>
@@ -24,17 +35,29 @@ const Index = () => {
                     alignItems: 'center',
                 }}
             >
-                <h2 style={{color: 'white'}}>Artwork sharing platform</h2>
+                <h2 style={{ color: 'white' }}>Artwork sharing platform</h2>
                 <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={['2']}
-                    items={items}
                     style={{
+                        paddingLeft: 15,
                         flex: 1,
                         minWidth: 0,
                     }}
-                />
+                >
+                    <Menu.Item>
+                        <span>Profile</span>
+                        <Link to="/profile" />
+                    </Menu.Item>
+                    <Menu.Item>
+                        <span>Requests</span>
+                        <Link to="/requests" />
+                    </Menu.Item>
+                    <Menu.Item>
+                        <span>Artworks</span>
+                        <Link to="/artworks" />
+                    </Menu.Item>
+                </Menu>
                 <LogoutButton />
             </Header>
             <Content

@@ -6,3 +6,7 @@ export { default as Home } from './home'
 export { default as AuthenticationValidate } from './authenticationValidatePage'
 
 export { default as LoggedHome } from './loggedHome'
+
+export { default as Profile } from './profilePage'
+
+export { default as Request } from './requestsPage'

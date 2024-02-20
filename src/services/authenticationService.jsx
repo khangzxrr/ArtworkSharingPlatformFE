@@ -1,5 +1,6 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constants"
+import { useAuthenticationStore } from "../stores/authenticationStore";
 
 export const loginService = async (username, password, rememberMe) => {
     try {
@@ -11,7 +12,13 @@ export const loginService = async (username, password, rememberMe) => {
                 password,
                 rememberMe
             }
-        )
+        );
+
+        axios.interceptors.request.use(config => {
+            config.headers.Authorization = "Bearer " + response.data.id_token;
+
+            return config;
+        });
 
         return response.data.id_token;
 
@@ -20,4 +27,22 @@ export const loginService = async (username, password, rememberMe) => {
 
         throw err
     }
+}
+
+export const getAccount = async () => {
+
+    try {
+        const response = await axios.get(BASE_URL + '/account');
+
+        return response.data;
+
+    } catch (err) {
+        console.log('Error fetching account ', err);
+        throw err;
+    }
+    
+
+    
+
+
 }
