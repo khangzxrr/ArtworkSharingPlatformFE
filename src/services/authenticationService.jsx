@@ -29,6 +29,24 @@ export const loginService = async (username, password, rememberMe) => {
     }
 }
 
+export const registerService = async (data) => {
+  try {
+    const response = await axios.post(BASE_URL + "/register", data);
+
+    axios.interceptors.request.use((config) => {
+      config.headers.Authorization = "Bearer " + response.data.id_token;
+
+      return config;
+    });
+
+    return response.data.id_token;
+  } catch (err) {
+    console.log("Error fetching user data: ", err);
+
+    throw err;
+  }
+};
+
 export const getAccount = async () => {
 
     try {

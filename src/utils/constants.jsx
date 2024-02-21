@@ -1,4 +1,4 @@
 
-const BASE_URL = 'http://localhost:8080/api'
+const BASE_URL = 'https://artwork-sharing-platform.id.vn/api'
 
 export { BASE_URL }

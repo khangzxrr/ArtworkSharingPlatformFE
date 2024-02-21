@@ -1,0 +1,103 @@
+.modalContentWrapper {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.modalContentWrapper span:last-child {
+  border: none;
+}
+
+.modalContentWrapper span {
+  display: block;
+  padding: 1rem 0;
+  border-bottom: 1px solid #dbdbdb;
+  cursor: pointer;
+}
+.postWrapper {
+  width: 615px;
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  margin-bottom: 1.5rem;
+}
+.postWrapper .postHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.postWrapper .postHeader {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.postWrapper .postHeader h3 {
+  cursor: pointer;
+}
+
+.postWrapper .postImg {
+  width: 100%;
+  height: 100%;
+}
+
+.postWrapper .postActions {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  padding-bottom: 0.2rem;
+}
+
+.postWrapper .postActions button:last-child {
+  margin-left: auto;
+}
+
+.postWrapper svg {
+  margin-right: 1rem;
+}
+
+.postWrapper .likesCaptionComments {
+  padding: 1rem;
+  padding-top: 0.3rem;
+}
+
+.postWrapper .username {
+  padding-right: 0.3rem;
+}
+
+.postWrapper .viewComments {
+  color: #b2b2b2;
+  cursor: pointer;
+}
+
+.postWrapper textarea {
+  height: 100%;
+  width: 97%;
+  border: none;
+  border-top: 1px solid #dbdbdb;
+  resize: none;
+  padding: 1rem 0 0 1rem;
+  font-size: 1rem;
+  font-family: "Fira Sans", sans-serif;
+}
+
+@media screen and (max-width: 690px) {
+  .postWrapper {
+    width: 99%;
+  }
+}
+
+.commentWrapper {
+  display: flex;
+}
+.commentWrapper span {
+  padding-right: 0.4rem;
+}
+.avatar {
+  width: 100%;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-right: 1rem;
+}

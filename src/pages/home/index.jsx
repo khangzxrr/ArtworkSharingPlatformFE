@@ -1,13 +1,15 @@
-import React from 'react'
-import styles from './home.module.css'
+import React from "react";
+import Header from '../../layouts/loggedLayout';
+import Artwork from "./homePage";
 
 const index = () => {
+
   return (
     <div>
-      Home Page
-      <br/>
+      <Header />
+      <Artwork />
     </div>
-  )
+  );
 }
 
-export default index
+export default index;
