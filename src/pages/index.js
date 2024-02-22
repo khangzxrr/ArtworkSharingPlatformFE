@@ -11,4 +11,6 @@ export { default as LoggedHome } from './loggedHome'
 
 export { default as Profile } from './profilePage'
 
-export { default as Request } from './requestsPage'
+export { default as Request } from './requestsPage' 
+
+export { default as Artwork} from './artwork'
