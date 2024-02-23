@@ -25,15 +25,6 @@ const Index = () => {
     console.log('Failed:', errorInfo);
   };
 
-  const role = useAuthenticationStore(state => state.role);
-
-  useEffect(() => {
-
-    console.log(role);
-
-  }, [])
-
-
   return (
     <>
       <Form
