@@ -2,27 +2,31 @@ import { Button, Card, Form, Input, Checkbox, notification } from "antd";
 import React from "react";
 
 import styles from "./index.module.css";
-import { login } from "../../services/authenticationService";
-import { useAuthenticationStore } from "../../stores/authenticationStore";
+import { getAccount, login } from "../../services/authenticationService";
+import { setAccount, setToken, useAuthenticationStore } from "../../stores/authenticationStore";
 import { useNavigate } from "react-router-dom";
 import { USER_AUTHORIZE } from "../../utils/constants";
 
 
 const Index = () => {
   
-  const setAuthentication = useAuthenticationStore(state => state.setAuthentication)
   const navigate = useNavigate()
 
   const onFinish = async (fields) => {
+
     login(fields.username, fields.password, fields.remember).then(token => {
       console.log(token)
-      notification.info({ message: 'login succeed', description: 'you will be redirect in seconds...'})
-      setAuthentication(token, USER_AUTHORIZE)
+      setToken(token)
 
-      navigate('/profile')
+      return getAccount()
+    }).then(account => {
+      setAccount(account)
+
+      notification.info({ message: 'login succeed', description: 'you will be redirect in seconds...'})
       
+      navigate('/profile')
+
     })
-    
     .catch(err => {
       console.log(err)
       notification.error({ message: 'login failed', description: 'please check again' })

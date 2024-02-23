@@ -3,24 +3,21 @@
 import styles from "./index.module.css";
 import React, { useEffect, useState } from 'react';
 import { Avatar, Button, List, Radio, Space, notification } from 'antd';
-import { useAuthenticationStore } from "../../stores/authenticationStore";
-import { USER_AUTHORIZE } from "../../utils/constants";
-import { userGetRequests } from "../../services/requestService";
+import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "../../stores/authenticationStore";
+import { CREATOR_AUTHORIZE, USER_AUTHORIZE } from "../../utils/constants";
+import { creatorGetRequests, userGetRequests } from "../../services/requestService";
 import { Link } from "react-router-dom";
 
 
 const Index = () => {
 
-  const role = useAuthenticationStore(state => state.role);
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
 
-    console.log(role);
 
-    if (role === USER_AUTHORIZE) {
+    if (isContainUserRole()) {
       userGetRequests().then(response => {
-        console.log(response);
         setRequests(response.filter(r => r.status == 'ON_BIDING'));
 
       }).catch(error => {
@@ -28,10 +25,20 @@ const Index = () => {
         notification.error({ message: 'error getting requests', description: 'Please re-login and try again' });
       });
 
-    }
+    } else
+      if (isContainCreatorRole()) {
+        creatorGetRequests().then(response => {
+          setRequests(response.filter(r => r.status == 'ON_BIDING'));
+
+        }).catch(error => {
+          console.log(error);
+          notification.error({ message: 'error getting requests', description: 'Please re-login and try again' });
+        });
+
+      }
   }, [])
 
-  
+
   return (
     <>
       <List
