@@ -5,8 +5,17 @@ import reportWebVitals from './reportWebVitals';
 
 import Routers from './routers/router';
 import { RouterProvider } from 'react-router-dom';
+import axios from 'axios';
+import { useAuthenticationStore } from './stores/authenticationStore';
 
 
+
+axios.interceptors.request.use(config => {
+
+  config.headers.Authorization = "Bearer " + useAuthenticationStore.getState().accessToken;
+
+  return config;
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,5 +1,6 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constants"
+import { guestAxios, userAxios } from "../utils/axios";
 
 export const getAuthorize = async () => {
     try {
@@ -16,7 +17,7 @@ export const getAuthorize = async () => {
 export const login = async (username, password, rememberMe) => {
     try {
 
-        const response = await axios.post(
+        const response = await guestAxios.post(
             BASE_URL + '/authenticate',
             {
                 username,
@@ -25,7 +26,7 @@ export const login = async (username, password, rememberMe) => {
             }
         );
 
-        axios.interceptors.request.use(config => {
+        userAxios.interceptors.request.use(config => {
             config.headers.Authorization = "Bearer " + response.data.id_token;
 
             return config;
@@ -43,7 +44,7 @@ export const login = async (username, password, rememberMe) => {
 export const getAccount = async () => {
 
     try {
-        const response = await axios.get(BASE_URL + '/account');
+        const response = await userAxios.get(BASE_URL + '/account');
 
         return response.data;
 
