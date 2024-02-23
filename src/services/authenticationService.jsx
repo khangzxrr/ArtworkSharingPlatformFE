@@ -1,8 +1,19 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constants"
-import { useAuthenticationStore } from "../stores/authenticationStore";
 
-export const loginService = async (username, password, rememberMe) => {
+export const getAuthorize = async () => {
+    try {
+        const response = await axios.get(BASE_URL + '/authenticate');
+
+        return response.data;
+
+    } catch (err) {
+        console.log('Error fetching account ', err);
+        throw err;
+    }
+}
+
+export const login = async (username, password, rememberMe) => {
     try {
 
         const response = await axios.post(
@@ -40,9 +51,5 @@ export const getAccount = async () => {
         console.log('Error fetching account ', err);
         throw err;
     }
-    
-
-    
-
 
 }

@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Flex } from "antd";
-import {
-    DatePicker,
-    Form,
-    Input,
-} from 'antd';
-import { getAccount } from "../../services/authenticationService";
+import React from "react";
+import { Button} from "antd";
+import { RequestList } from "../../components";
+import { Link } from "react-router-dom";
 
 const Index = () => {
 
     return (
-        <Flex align="center" gap="middle" vertical style={{ padding: 15, }}>
-           Request page
-        </Flex>
+        <>
+            <Button><Link to="/create-request">Create a new request</Link></Button>
+            <RequestList />
+        </>
+
     )
 }
 

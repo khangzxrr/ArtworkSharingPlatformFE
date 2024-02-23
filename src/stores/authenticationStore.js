@@ -5,8 +5,9 @@ export const useAuthenticationStore = create(devtools(
     persist(
       (set, get) => ({
         accessToken: undefined,
-        setAccessToken: (token) => set({ accessToken: token }),
-        clearAccessToken: () => set({ accessToken: undefined }),
+        role: undefined,
+        setAuthentication: (token, role) => set({ accessToken: token, role }),
+        clearAuthentication: () => set({ accessToken: undefined, role: undefined }),
       }),
       {
         name: 'authentication-storage',
