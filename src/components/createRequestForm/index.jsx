@@ -26,7 +26,6 @@ const Index = () => {
   };
 
   const role = useAuthenticationStore(state => state.role);
-  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
 
