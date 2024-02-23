@@ -1,6 +1,6 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import { AuthenticationValidate, CreateRequest, Home, LoggedHome, Login, Profile, Request } from  '../pages';
+import { AuthenticationValidate, CreateRequest, Home, LoggedHome, Login, Profile, Request, Requests } from  '../pages';
 
 const Routers = createBrowserRouter([
     {
@@ -24,6 +24,10 @@ const Routers = createBrowserRouter([
             },
             {
                 path: '/requests',
+                element: <Requests />
+            },
+            {
+                path: '/requests/:requestId',
                 element: <Request />
             },
             {
