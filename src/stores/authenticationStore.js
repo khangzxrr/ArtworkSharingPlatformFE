@@ -5,9 +5,7 @@ export const useAuthenticationStore = create(devtools(
     persist(
       (set, get) => ({
         accessToken: undefined,
-        role: undefined,
-        setAuthentication: (token, role) => set({ accessToken: token, role }),
-        clearAuthentication: () => set({ accessToken: undefined, role: undefined }),
+        account: undefined,
       }),
       {
         name: 'authentication-storage',
@@ -15,3 +13,10 @@ export const useAuthenticationStore = create(devtools(
     )
   )
 )
+
+
+export const setToken = (accessToken) => useAuthenticationStore.setState((state) => ({ accessToken }))
+
+export const setAccount =  (account) =>  useAuthenticationStore.setState((state) => ({ account }))
+
+export const clearAuthentication = () => useAuthenticationStore.setState((state) => ({ accessToken: undefined, account: undefined }))
