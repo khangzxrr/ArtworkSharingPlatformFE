@@ -7,3 +7,13 @@ export const userGetRequests = async () => {
 
     return response.data;
 }
+
+export const userCreateRequest = async (title, description) => {
+    const response = await axios.post(`${BASE_URL}/audience/requests`, {
+        title,
+        description,
+        attachments: []
+    })
+
+    return response.data;
+}

@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Flex } from "antd";
-import {
-    DatePicker,
-    Form,
-    Input,
-} from 'antd';
-import { getAccount } from "../../services/authenticationService";
-import { RequestList } from "../../components";
+import React, {  } from "react";
+import { CreateRequestForm } from "../../components";
 
 const Index = () => {
 
     return (
-        <RequestList />
+        <CreateRequestForm />
     )
 }
 

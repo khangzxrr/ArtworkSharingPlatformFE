@@ -10,3 +10,5 @@ export { default as LoggedHome } from './loggedHome'
 export { default as Profile } from './profilePage'
 
 export { default as Request } from './requestsPage'
+
+export { default as CreateRequest } from './createRequestPage'

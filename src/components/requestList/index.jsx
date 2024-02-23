@@ -21,7 +21,7 @@ const Index = () => {
     if (role === USER_AUTHORIZE) {
       userGetRequests().then(response => {
         console.log(response);
-        setRequests(response.filter(r => r.status == 'BIDING'));
+        setRequests(response.filter(r => r.status == 'ON_BIDING'));
 
       }).catch(error => {
         console.log(error);
@@ -44,7 +44,7 @@ const Index = () => {
           <List.Item>
             <List.Item.Meta
               avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-              title={<a href="https://ant.design">{item.title}</a>}
+              title={<Link to={`/requests/${item.id}`}>{item.title}</Link>}
               description={item.description}
             />
           </List.Item>
