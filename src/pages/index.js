@@ -14,3 +14,5 @@ export { default as Requests } from './requestsPage'
 export { default as Request } from './requestPage'
 
 export { default as CreateRequest } from './createRequestPage'
+
+export { default as RequestProgressPage } from './requestProgressPage'

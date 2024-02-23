@@ -1,6 +1,6 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import { AuthenticationValidate, CreateRequest, Home, LoggedHome, Login, Profile, Request, Requests } from  '../pages';
+import { AuthenticationValidate, CreateRequest, Home, LoggedHome, Login, Profile, Request, RequestProgressPage, Requests } from  '../pages';
 
 const Routers = createBrowserRouter([
     {
@@ -33,6 +33,10 @@ const Routers = createBrowserRouter([
             {
                 path: '/create-request',
                 element: <CreateRequest />
+            },
+            {
+                path: '/requests/:requestId/progress',
+                element: <RequestProgressPage />
             }
         ]
     }
