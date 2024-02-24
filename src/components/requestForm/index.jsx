@@ -35,7 +35,6 @@ const Index = (props) => {
           <Form.Item
             label="Request title"
             name="requestTitle"
-            fi
             rules={[
               {
                 required: true,
@@ -67,9 +66,6 @@ const Index = (props) => {
           <RequestBidForm requestId={requestId} />
         } */}
       </Flex>
-
-      <RequestBidList  request={props.request} requestBids={props.requestBids} />
-
     </>
   );
 };
