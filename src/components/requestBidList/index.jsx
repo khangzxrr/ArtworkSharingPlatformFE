@@ -1,11 +1,12 @@
 
 
 import { List, notification } from 'antd';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { audienceChooseRequestBid } from '../../services/requestBidService';
-import styles from "./index.module.css";
+import { useAuthenticationStore } from '../../stores/authenticationStore';
 const Index = (props) => {
 
+  const account = useAuthenticationStore(state => state.account)
 
   function chooseRequestBid(requestBidId) {
     console.log(requestBidId)
@@ -26,7 +27,7 @@ const Index = (props) => {
       renderItem={(item) => (
         <List.Item
         
-          actions={props.request.user.login == props.account.login && props.request.status === 'ON_BIDING' ? [<a onClick={() => chooseRequestBid(item.id)}>choose this bid</a>] : []}
+          actions={props.request.user.login == account.login && props.request.status === 'ON_BIDING' ? [<a onClick={() => chooseRequestBid(item.id)}>choose this bid</a>] : []}
         >
           <List.Item.Meta
             //avatar={<Avatar src={item.picture.large} />}
