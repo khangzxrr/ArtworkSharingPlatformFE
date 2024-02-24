@@ -20,6 +20,8 @@ const Index = (props) => {
   }
 
   return (
+    <>
+    <h1>Request bids</h1>
     <List
       className="demo-loadmore-list"
       loading={false}
@@ -37,6 +39,8 @@ const Index = (props) => {
         </List.Item>
       )}
     />
+    </>
+    
   );
 };
 
