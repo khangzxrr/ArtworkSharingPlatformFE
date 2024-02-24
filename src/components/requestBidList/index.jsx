@@ -6,6 +6,7 @@ import { audienceChooseRequestBid } from '../../services/requestBidService';
 import { useAuthenticationStore } from '../../stores/authenticationStore';
 const Index = (props) => {
 
+  
   const account = useAuthenticationStore(state => state.account)
 
   function chooseRequestBid(requestBidId) {
@@ -27,10 +28,9 @@ const Index = (props) => {
       renderItem={(item) => (
         <List.Item
         
-          actions={props.request.user.login == account.login && props.request.status === 'ON_BIDING' ? [<a onClick={() => chooseRequestBid(item.id)}>choose this bid</a>] : []}
+          actions={ props.request.user && props.request.user.login === account.login && props.request.status === 'ON_BIDING' ? [<a onClick={() => chooseRequestBid(item.id)}>choose this bid</a>] : []}
         >
           <List.Item.Meta
-            //avatar={<Avatar src={item.picture.large} />}
             title={`price: ${item.price} duration: ${item.duration} hours (${item.status == 'SELECTED_BID' ? 'Choosed' : ''})`}
             description={item.description}
           />
