@@ -18,7 +18,7 @@ const Index = () => {
 
     if (isContainUserRole()) {
       userGetRequests().then(response => {
-        setRequests(response.filter(r => r.status == 'ON_BIDING'));
+        setRequests(response.filter(r => r.status == 'ON_BIDING' || r.status == 'ON_GOING'));
 
       }).catch(error => {
         console.log(error);
