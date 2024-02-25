@@ -41,3 +41,9 @@ export const userGetCurrentRequestStep = async (requestId) => {
 
     return response.data
 }
+
+export const creatorGetCurrentRequestStep = async (requestId) => {
+    const response = await userAxios.get(`/creator/requests/${requestId}/current-step`)
+
+    return response.data
+}
