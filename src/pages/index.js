@@ -13,4 +13,6 @@ export { default as Profile } from './profilePage'
 
 export { default as Request } from './requestsPage' 
 
-export { default as Artwork} from './artwork'
+export { default as Artwork} from './artwork' 
+
+export { default as Auction} from './auction'

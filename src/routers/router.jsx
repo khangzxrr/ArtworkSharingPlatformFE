@@ -1,6 +1,7 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import { AuthenticationValidate, Home, LoggedHome, Login, Profile, Register, Request , Artwork} from  '../pages';
+import { AuthenticationValidate, Home, LoggedHome, Login, Profile, Register, Request , Artwork, Auction} from  '../pages';
+import AuctionDetail from "../pages/auction/detail";
 
 const Routers = createBrowserRouter([
   {
@@ -31,9 +32,17 @@ const Routers = createBrowserRouter([
         element: <Request />,
       },
       {
-        path: "/artworks", 
-        element: <Artwork/>
-      }
+        path: "/artworks",
+        element: <Artwork />,
+      },
+      {
+        path: "/auction",
+        element: <Auction />,
+      },
+      {
+        path: "/auction/detail",
+        element: <AuctionDetail />,
+      },
     ],
   },
 ]);

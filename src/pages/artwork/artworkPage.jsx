@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect,useRef,useState } from "react";
 import styles from "./index.module.css";
 import Post from "../../components/post";
 function Artwork() {
@@ -69,6 +69,33 @@ function Artwork() {
     },
   ];
   const [count, setCount] = useState(2);
+    const [page, setPage] = useState(1);
+    console.log("🚀 ~ Artwork ~ page:", page)
+   const loader = useRef(null);
+    useEffect(() => {
+      const observer = new IntersectionObserver(handleObserver, {
+        root: null,
+        rootMargin: "20px",
+        threshold: 1.0,
+      });
+      if (loader.current) {
+        observer.observe(loader.current);
+      }
+      return () => {
+        if (loader.current) {
+          observer.unobserve(loader.current);
+        }
+      };
+    }, [loader]);
+  const handleObserver = (entries) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setTimeout(() => {
+         setPage((prevPage) => prevPage + 1);
+         setCount(3);
+      }, 2000);
+    }
+  };
   return (
     <div
       style={{
@@ -84,13 +111,8 @@ function Artwork() {
             <Post key={post._id} post={post} />
           ))}
           {count !== 3 && (
-            <div style={{ textAlign: "center" }}>
-              <button
-                className={styles.load}
-                onClick={() => setCount(count + 1)}
-              >
-                <span>load more</span>
-              </button>
+            <div ref={loader} style={{ textAlign: "center" }}>
+              <span>loading ...</span>
             </div>
           )}
         </div>

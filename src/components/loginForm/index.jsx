@@ -13,16 +13,16 @@ const Index = () => {
   const navigate = useNavigate()
 
   const onFinish = async (fields) => {
-    // loginService(fields.username, fields.password, fields.remember).then(response => {
-    //   console.log(response)
-    //   notification.info({ message: 'login succeed', description: 'you will be redirect in seconds...'})
-    //   setAccessToken(response) 
-    //   navigate('/profile')
+    loginService(fields.username, fields.password, fields.remember).then(response => {
+      console.log(response)
+      notification.info({ message: 'login succeed', description: 'you will be redirect in seconds...'})
+      setAccessToken(response) 
+      navigate('/')
       
-    // }).catch(err => {
-    //   console.log(err)
-    //   notification.error({ message: 'login failed', description: 'please check again' })
-    // })
+    }).catch(err => {
+      console.log(err)
+      notification.error({ message: 'login failed', description: 'please check again' })
+    })
     navigate("/");
   };
 
