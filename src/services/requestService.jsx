@@ -35,3 +35,9 @@ export const userCreateRequest = async (title, description) => {
 
     return response.data;
 }
+
+export const userGetCurrentRequestStep = async (requestId) => {
+    const response = await userAxios.get(`/audience/requests/${requestId}/current-step`)
+
+    return response.data
+}
