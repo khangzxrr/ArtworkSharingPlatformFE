@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { creatorGetRequestBidsOfRequest, userGetRequestBidsOfRequest } from "services/requestBidService"
 import { isContainCreatorRole, isContainUserRole } from "stores/authenticationStore"
 
-export const useGetRequestBidsByRequestId = (requestId) => {
+export const useGetRequestBidsByRequestId = (requestId, pageState = 0) => {
     const [requestBids, setRequestBids] = useState([])
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export const useGetRequestBidsByRequestId = (requestId) => {
                 creatorGetRequestBidsOfRequest(requestId)
                     .then(response => setRequestBids(response))
             }
-    }, [requestId])
+    }, [requestId, pageState])
 
     return requestBids
 }

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react"
 import { userGetRequest, creatorGetRequest } from "services/requestService"
 import { isContainCreatorRole, isContainUserRole } from "stores/authenticationStore"
 
-export const useGetRequestById = (requestId) => {
-    const [request, setRequest] = useState({})
+export const useGetRequestById = (requestId, pageState) => {
+    const [request, setRequest] = useState({ user: { login: '' } })
+
+    console.log('getting request')
 
     useEffect(() => {
         if (isContainUserRole()) {
@@ -14,7 +16,7 @@ export const useGetRequestById = (requestId) => {
                 creatorGetRequest(requestId)
                     .then(response => setRequest(response))
             }
-    }, [requestId])
+    }, [requestId, pageState])
 
     return request
 }

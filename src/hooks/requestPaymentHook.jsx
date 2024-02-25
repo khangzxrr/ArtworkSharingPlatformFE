@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { userGetFirstPayment, userGetSecondPayment, payFirstPayment, creatorGetFirstPayment, creatorGetSecondPayment } from "services/requestPaymentService"
 import { isContainCreatorRole, isContainUserRole } from "stores/authenticationStore"
 
-export const useGetFirstPayment = (requestId) => {
+export const useGetFirstPayment = (requestId, pageState = 0) => {
     const [firstPayment, setFirstPayment] = useState({ amount: 0 })
 
     useEffect(() => {
@@ -14,12 +14,12 @@ export const useGetFirstPayment = (requestId) => {
             creatorGetFirstPayment(requestId).then(response => setFirstPayment(response))
         }
         
-    }, [requestId])
+    }, [requestId, pageState])
 
     return firstPayment
 }
 
-export const useGetSecondPayment = (requestId) => {
+export const useGetSecondPayment = (requestId, pageState = 0) => {
     const [secondPayment, setSecondPayment] = useState({ amount: 0})
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export const useGetSecondPayment = (requestId) => {
             creatorGetSecondPayment(requestId).then(response => setSecondPayment(response))
         }
         
-    }, [requestId])
+    }, [requestId, pageState])
 
     return secondPayment
 }

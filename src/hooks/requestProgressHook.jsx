@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { creatorGetAllRequestProgressByRequestId, userGetAllRequestProgressByRequestId } from "services/requestProgressService"
 import { isContainCreatorRole, isContainUserRole } from "stores/authenticationStore"
 
-export const useGetRequestProgresses = (requestId) => {
+export const useGetRequestProgresses = (requestId, pageState = 0) => {
     const [requestProgresses, setRequestProgresses] = useState([])
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export const useGetRequestProgresses = (requestId) => {
                     .then(response => setRequestProgresses(response))
             }
 
-    }, [requestId])
+    }, [requestId, pageState])
 
     return requestProgresses
 }
