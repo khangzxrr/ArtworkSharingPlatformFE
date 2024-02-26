@@ -28,6 +28,7 @@ const Index = (props) => {
       render: (_, { type }) => {
         let color = 'green'
         if (type == 'REFUND') color = 'orange'
+        if (type === 'BUY') color = 'blue'
         if (type == 'WITHDRAW_REQUEST_FIRST_PAYMENT_TEMP') color = 'red'
         return (
           <Tag color={color}>
