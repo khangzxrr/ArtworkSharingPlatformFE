@@ -1,14 +1,29 @@
 import React from "react";
-import { Button} from "antd";
+import { Button, Col, FloatButton, Row } from "antd";
 import { RequestList } from "../../components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+    PlusOutlined
+} from '@ant-design/icons';
+import { isContainUserRole } from "stores/authenticationStore";
 
 const Index = () => {
 
+    const navigate = useNavigate()
+    
     return (
         <>
-            <Button><Link to="/create-request">Create a new request</Link></Button>
-            <RequestList />
+            {
+                isContainUserRole() &&
+                <FloatButton onClick={() => navigate('/create-request')} icon={<PlusOutlined />} type="primary" style={{ right: 24 }} />
+            }
+
+            <Row align={"middle"}>
+                <Col span={6} offset={8}>
+                    <RequestList />
+                </Col>
+            </Row>
+
         </>
 
     )
