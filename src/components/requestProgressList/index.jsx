@@ -84,9 +84,10 @@ const Index = (props) => {
                   {
                     rp.attachments.map(attach => <Link to={attach.media.url}>{attach.media.url}</Link>)
                   }
+                  {mapReportActions(rp)}
                 </Space>
 
-                {mapReportActions(rp)}
+                
 
               </Card>
             </Badge.Ribbon>
