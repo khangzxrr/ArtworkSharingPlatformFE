@@ -6,9 +6,11 @@ import { Button, Checkbox, Form, Input, notification } from 'antd';
 import { useAuthenticationStore } from "../../stores/authenticationStore";
 import { USER_AUTHORIZE } from "../../utils/constants";
 import { userCreateRequest, userGetRequests } from "../../services/requestService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Index = () => {
+
+  const navigate = useNavigate()
 
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -16,6 +18,8 @@ const Index = () => {
     userCreateRequest(values.requestTitle, values.requestDescription)
     .then(response => {
       notification.info({ message: 'Create request', description: 'Create request successfully!'})
+
+      navigate(`/requests/${response.id}`)
     })
     .catch(err => {
       notification.error({ message: 'Create request', description: 'Error when create new request, please try again!'})
