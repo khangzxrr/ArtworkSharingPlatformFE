@@ -55,7 +55,6 @@ const Index = (props) => {
 
   return (
     <>
-      <h2>Title</h2>
       <Form
         form={form}
         labelAlign='left'
