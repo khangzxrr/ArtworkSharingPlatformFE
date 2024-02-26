@@ -1,13 +1,13 @@
 import { userAxios } from "../utils/axios"
 
 export const creatorGetRequestBidsOfRequest = async (requestId) =>  {
-    const response = await userAxios.get(`/creator/request/${requestId}/request-bids`)
+    const response = await userAxios.get(`/creator/request/${requestId}/request-bids?sort=id,desc`)
 
     return response.data
 }
 
 export const userGetRequestBidsOfRequest = async (requestId) => {
-    const response = await userAxios.get(`/audience/requests/${requestId}/request-bids`)
+    const response = await userAxios.get(`/audience/requests/${requestId}/request-bids?sort=id,desc`)
 
     return response.data
 }
