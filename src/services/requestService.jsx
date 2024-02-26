@@ -2,14 +2,14 @@ import { userAxios } from "../utils/axios";
 
 
 export const creatorGetRequests = async () => {
-    const response = await userAxios.get('/creator/requests')
+    const response = await userAxios.get('/creator/requests?sort=id,desc')
 
     return response.data
 }
 
 export const userGetRequests = async () => {
 
-    const response = await userAxios.get('/audience/requests');
+    const response = await userAxios.get('/audience/requests?sort=id,desc');
 
     return response.data;
 }
