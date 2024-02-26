@@ -2,10 +2,11 @@
 
 import React, { } from 'react';
 import { Button, Form, Input, InputNumber, notification } from 'antd';
-import { userCreateRequest } from "../../services/requestService";
 import { creatorCreateRequestBid } from '../../services/requestBidService';
 
 const Index = (props) => {
+
+  const [form] = Form.useForm();
 
   const onFinish = (values) => {
 
@@ -15,14 +16,22 @@ const Index = (props) => {
     creatorCreateRequestBid(props.requestId, values.bidDescription, values.bidPrice, values.bidDuration)
     .then(response => {
       console.log(response)
+      notification.info({ message: 'Create request bid', description: 'Create request bid successfully!'})
+      form.resetFields()
     })
+    .catch(error => {
+      console.log(error)
+      notification.error({ message: 'Create request bid', description: 'Create request bid failed! please try again'})
+    })
+    .finally(() => props.refreshPage())
 
   };
 
   return (
     <>
       <Form
-        name="basic"
+        name="createRequestBidForm"
+        form={form}
         labelCol={{
           span: 8,
         }}
@@ -38,7 +47,6 @@ const Index = (props) => {
         <Form.Item
           label="Bid description"
           name="bidDescription"
-          fi
           rules={[
             {
               required: true,
@@ -50,7 +58,7 @@ const Index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Bid price"
+          label="Bid price ($)"
           name="bidPrice"
           rules={[
             {
