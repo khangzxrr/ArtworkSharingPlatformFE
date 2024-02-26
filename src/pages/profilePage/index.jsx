@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Card, Col, Flex, Row } from "antd";
+import React, { useState } from "react";
+import { Card, Col, Divider, Row } from "antd";
 import {
-    DatePicker,
     Form,
     Input,
 } from 'antd';
-import { getAccount } from "../../services/authenticationService";
+import { useAuthenticationStore } from "stores/authenticationStore";
+import { PaypalDeposit, Wallet, WalletTransactionList } from "components";
+import { useGetWallet, useGetWalletTransactions } from "hooks/walletHook";
 
 const Index = () => {
 
-    const [account, setAccount] = useState({});
+    const [refreshWallet, setRefreshWallet] = useState(0)
 
-    useEffect(() => {
-        getAccount().then(response => setAccount(response))
-            .catch(err => console.log(err))
-    }, [])
+    const account = useAuthenticationStore(state => state.account)
+
+    const wallet = useGetWallet(refreshWallet)
+    const walletTransactions = useGetWalletTransactions(refreshWallet)
+
+    const reloadWallet = () => {
+        const newValue = refreshWallet + 1
+        setRefreshWallet(newValue)
+    }
 
     return (
         <Row gutter={16}>
@@ -56,9 +62,12 @@ const Index = () => {
                 </Card>
             </Col>
             <Col span={8}>
-                <Card title="Wallet" bordered={false}>
-                    Card content
-                </Card>
+                <Wallet wallet={wallet} />
+                <Divider />
+                <WalletTransactionList walletTransactions={walletTransactions} />
+            </Col>
+            <Col span={8}>
+                <PaypalDeposit reloadWallet={reloadWallet} />
             </Col>
         </Row>
     )
