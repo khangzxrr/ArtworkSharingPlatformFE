@@ -1,24 +1,33 @@
 
 
-import styles from "./index.module.css";
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Radio, Space, notification } from 'antd';
-import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "../../stores/authenticationStore";
-import { CREATOR_AUTHORIZE, USER_AUTHORIZE } from "../../utils/constants";
+import { Avatar, Badge, Button, Card, Col, List, Row, Space, notification } from 'antd';
+import { isContainCreatorRole, isContainUserRole } from "../../stores/authenticationStore";
 import { creatorGetRequests, userGetRequests } from "../../services/requestService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
+import { Typography } from 'antd';
+
+import styles from './index.module.css'
+
+const { Text } = Typography;
 
 const Index = () => {
 
   const [requests, setRequests] = useState([]);
 
+  const navigate = useNavigate()
+
+  const mapStatusToColor = (status) => {
+    if (status === 'ENDED') return 'pink'
+    if (status === 'ON_BIDING') return 'green'
+    if (status === 'ON_GOING') return 'orange'
+    if (status === 'FAILED') return 'red'
+  }
   useEffect(() => {
-
-
     if (isContainUserRole()) {
       userGetRequests().then(response => {
-        setRequests(response.filter(r => r.status == 'ON_BIDING' || r.status == 'ON_GOING'));
+        setRequests(response);
 
       }).catch(error => {
         console.log(error);
@@ -28,7 +37,7 @@ const Index = () => {
     } else
       if (isContainCreatorRole()) {
         creatorGetRequests().then(response => {
-          setRequests(response.filter(r => r.status == 'ON_BIDING'));
+          setRequests(response);
 
         }).catch(error => {
           console.log(error);
@@ -47,14 +56,21 @@ const Index = () => {
           align: 'center',
         }}
         dataSource={requests}
+        rowKey={(item) => item.id}
         renderItem={(item, index) => (
-          <List.Item>
-            <List.Item.Meta
-              avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-              title={<Link to={`/requests/${item.id}`}>{item.title}</Link>}
-              description={item.description}
-            />
-          </List.Item>
+          <Badge.Ribbon text={item.status} color={mapStatusToColor(item.status)}>
+            <Card hoverable title={item.title} className={styles.request} onClick={() => navigate(`/requests/${item.id}`)}>
+              <Row>
+                <Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size="large">
+                  {item.user.login}
+                </Avatar>
+                <Text className={styles.description}>
+                  {item.description}
+                </Text>
+              </Row>
+            </Card>
+          </Badge.Ribbon>
+
         )}
       />
     </>
