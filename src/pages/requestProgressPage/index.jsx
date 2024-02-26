@@ -52,7 +52,9 @@ const Index = () => {
 
         return isContainCreatorRole() &&
             selectedBid.user.login === account.login &&
-            requestProgresses.length > 0 && requestProgresses.length < 5 //report state
+            requestProgresses.length > 0 && requestProgresses.length < 5 &&//report state
+            request.status !== 'FAILED'
+
     }
 
 
@@ -99,7 +101,7 @@ const Index = () => {
                 {
                     displayPaymentFormCondition() &&
                     <Col span={6}>
-                        <h1>First request payment</h1>
+                        <h1>Payment</h1>
                         <Space direction="vertical">
                             <Text mark>Total you have to pay is {requestProgresses.length === 0 ? firstPayment.amount : secondPayment.amount}$</Text>
                             {requestProgresses.length === 0 ? <Text>This is 80% of choosed request bid's price</Text> : <Text>This is 20% of choosed request bid's price and 5% platform service fee</Text>}
