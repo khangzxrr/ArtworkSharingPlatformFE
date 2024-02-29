@@ -39,7 +39,7 @@ const Index = (props) => {
         >
           <List.Item.Meta
             title={`price: ${item.price}$  - ${item.duration} hours ${item.status == 'SELECTED_BID' ? '(Choosed ⭐)' : ''}`}
-            description={item.description}
+            description={item.user.login + ": " + item.description}
           />
         </List.Item>
       )}
