@@ -1,28 +1,18 @@
-import { Button } from "antd";
+import { Avatar, Button } from "antd";
 import React from "react";
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from "react-router-dom";
 import { LogoutButton } from "../../components";
+import { UserOutlined } from '@ant-design/icons';
+import { isContainUserRole, useAuthenticationStore } from "stores/authenticationStore";
 
 const { Header, Content, Footer } = Layout;
 
 
-const items = [
-    {
-        key: 'profile',
-        label: 'profile'
-    },
-    {
-        key: 'artworks',
-        label: 'artworks'
-    },
-    {
-        key: 'requests',
-        label: 'requests'
-    }
-]
-
 const Index = () => {
+
+    const account = useAuthenticationStore(state => state.account)
+
     return (
         <Layout>
             <Header
@@ -45,6 +35,10 @@ const Index = () => {
                         minWidth: 0,
                     }}
                 >
+                    <Menu.Item>
+                        <span><UserOutlined /> {account.login} - {isContainUserRole() ? 'AUDIENCE' : 'CREATOR'}</span>
+                        <Link to="/profile" />
+                    </Menu.Item>
                     <Menu.Item>
                         <span>Profile</span>
                         <Link to="/profile" />
