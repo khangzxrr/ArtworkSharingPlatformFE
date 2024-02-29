@@ -4,7 +4,7 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from "react-router-dom";
 import { LogoutButton } from "../../components";
 import { UserOutlined } from '@ant-design/icons';
-import { isContainUserRole, useAuthenticationStore } from "stores/authenticationStore";
+import { isContainAdminRole, isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "stores/authenticationStore";
 
 const { Header, Content, Footer } = Layout;
 
@@ -12,6 +12,22 @@ const { Header, Content, Footer } = Layout;
 const Index = () => {
 
     const account = useAuthenticationStore(state => state.account)
+
+    const showRole = () => {
+        if (isContainUserRole()) {
+            return 'USER'
+        }
+
+        if (isContainCreatorRole()) {
+            return 'CREATOR'
+        }
+
+        if (isContainAdminRole()) {
+            return 'ADMIN'
+        }
+
+        return 'GUEST'
+    }
 
     return (
         <Layout>
@@ -36,7 +52,7 @@ const Index = () => {
                     }}
                 >
                     <Menu.Item>
-                        <span><UserOutlined /> {account.login} - {isContainUserRole() ? 'AUDIENCE' : 'CREATOR'}</span>
+                        <span><UserOutlined /> {account.login} - {showRole()}</span>
                         <Link to="/profile" />
                     </Menu.Item>
                     <Menu.Item>

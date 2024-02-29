@@ -92,7 +92,7 @@ const Index = () => {
                 <RequestTimeline requestProgresses={requestProgresses} />
             </Row>
             <Row>
-                <Col span={6}>
+                <Col span={9}>
                     <h1>Request information</h1>
                     <RequestForm request={request} requestBids={requestBids} />
                     <RequestBidList request={request} requestBids={requestBids} />
