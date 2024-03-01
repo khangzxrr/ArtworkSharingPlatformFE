@@ -1,12 +1,10 @@
 
 
 import React, { useState } from 'react';
-import { Button, Col, Form, Image, Input, InputNumber, Row, Space, Upload, notification } from 'antd';
+import { Button, Form, Input, Space, notification } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import styles from './index.module.css'
 import { CloseOutlined } from '@ant-design/icons';
 import { creatorCreateRequestProgress } from 'services/requestProgressService';
-import { creatorGetCurrentRequestStep, userGetCurrentRequestStep } from 'services/requestService';
 
 const Index = (props) => {
 
@@ -21,16 +19,7 @@ const Index = (props) => {
       return values[key]
     })
 
-    creatorGetCurrentRequestStep(props.requestId).then(response => {
-      console.log(response)
-
-      if (response.currentStep.includes('REPORT')) {
-        return creatorCreateRequestProgress(props.requestId, values.description, attachmentUrls, response.currentStep)
-      }
-
-      notification.error({ message: 'Create request progress', description: 'This is not the correct state to create request report'})
-      return true
-    })
+    creatorCreateRequestProgress(props.requestId, values.description, attachmentUrls)
     .then(response => {
       notification.info({ message: 'Create request progress', description: 'Create request progress successfully!'})
     })
@@ -60,15 +49,13 @@ const Index = (props) => {
         labelAlign='left'
         name="createRequestProgressReport"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         onFinish={onFinish}
         wrapperCol={{
           span: 16,
         }}
-        style={{
-          maxWidth: 600,
-        }}
+        
         autoComplete="off"
       >
 
@@ -81,7 +68,7 @@ const Index = (props) => {
             },
             {
               type: 'string',
-              min: 20,
+              whitespace: true
             },
           ]}
         >
