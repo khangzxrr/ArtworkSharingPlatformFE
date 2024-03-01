@@ -13,6 +13,7 @@ import { Typography } from 'antd';
 import { payFirstPayment, paySecondPayment } from "services/requestPaymentService";
 import { userGetCurrentRequestStep } from "services/requestService";
 import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "stores/authenticationStore";
+import { FIRST_PAYMENT, REPORT, SECOND_PAYMENT } from "models/RequestProgressTypes";
 
 const { Text } = Typography;
 
@@ -40,8 +41,9 @@ const Index = () => {
     const account = useAuthenticationStore(state => state.account)
 
     function displayPaymentFormCondition() {
-        return (requestProgresses.length === 0 || requestProgresses.length === 5) &&
-            isContainUserRole() && request.user.login == account.login
+        return (request.status === FIRST_PAYMENT || request.status === SECOND_PAYMENT) &&
+            isContainUserRole() && request.user.login == account.login 
+
     }
 
     function displayRequestReportFormCondition() {

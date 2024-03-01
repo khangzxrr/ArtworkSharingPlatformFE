@@ -2,11 +2,38 @@
 
 import React, { } from 'react';
 import { Steps } from 'antd';
+import { FIRST_PAYMENT, REPORT, SECOND_PAYMENT } from 'models/RequestProgressTypes';
 
 
 const Index = (props) => {
 
-  const currentTimeline = props.requestProgresses ? props.requestProgresses.length : 0;
+  console.log(props.requestProgresses)
+
+  let currentTimeline = 0
+
+  if (props.requestProgresses == undefined) {
+    currentTimeline = 0
+  }
+
+  const existFirstPayment = props.requestProgresses.some(rp => rp.type === FIRST_PAYMENT)
+  if (existFirstPayment) {
+    currentTimeline += 1
+  }
+
+
+
+  const existReport = props.requestProgresses.some(rp => rp.type === REPORT)
+  if (existReport) {
+    currentTimeline += 1
+  }
+
+  const existSecondPayment = props.requestProgresses.some(rp => rp.type === SECOND_PAYMENT)
+  if (existSecondPayment) {
+    currentTimeline += 1
+  }
+
+  console.log(currentTimeline)
+
 
   const timeline = [
     {
@@ -14,19 +41,7 @@ const Index = (props) => {
       description: 'Pay 80% of choosed bid price'
     },
     {
-      title: 'Report 1st',
-      description: 'Creator report request process'
-    },
-    {
-      title: 'Report 2nd',
-      description: 'Creator report request process'
-    },
-    {
-      title: 'Report 3rd',
-      description: 'Creator report request process'
-    },
-    {
-      title: 'Report 4th',
+      title: 'Report',
       description: 'Creator report request process'
     },
     {
