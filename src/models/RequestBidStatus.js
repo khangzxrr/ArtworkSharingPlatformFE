@@ -1,0 +1,5 @@
+
+const BIDED = 'BIDED'
+const SELECTED_BID = 'SELECTED_BID'
+
+export { BIDED, SELECTED_BID }
