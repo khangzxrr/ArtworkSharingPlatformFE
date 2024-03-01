@@ -1,7 +1,7 @@
 
 
 import React, {  } from 'react';
-import { Descriptions, Divider, Form } from 'antd';
+import { Descriptions, Divider, Form, Typography } from 'antd';
 
 const Index = (props) => {
 
@@ -21,8 +21,8 @@ const Index = (props) => {
   return (
     <>
       <Descriptions title="Request information">
-      <Descriptions.Item label="Request title">{props.request.title}</Descriptions.Item>
-      <Descriptions.Item label="Request description">{props.request.description}</Descriptions.Item>
+      <Descriptions.Item label="Request title"><Typography.Text strong>{props.request.title}</Typography.Text></Descriptions.Item>
+      <Descriptions.Item label="Request description"><Typography.Text strong>{props.request.description}</Typography.Text></Descriptions.Item>
       </Descriptions>
 
         <Divider />
