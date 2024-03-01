@@ -1,6 +1,6 @@
 import { Button, Col, Form, Row, Space, notification } from "antd";
 import React, { useState } from "react";
-import { RequestBidList, RequestForm, RequestProgressList, RequestProgressReportForm, RequestTimeline } from "../../components";
+import { RequestBidList, RequestChatBox, RequestForm, RequestProgressList, RequestProgressReportForm, RequestTimeline } from "../../components";
 import { useParams } from "react-router-dom";
 import { useGetRequestById } from "hooks/getRequestHook";
 import { useGetRequestBidsByRequestId } from "hooks/requestBidHook";
@@ -13,7 +13,8 @@ import { Typography } from 'antd';
 import { payFirstPayment, paySecondPayment } from "services/requestPaymentService";
 import { userGetCurrentRequestStep } from "services/requestService";
 import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "stores/authenticationStore";
-import { FIRST_PAYMENT, REPORT, SECOND_PAYMENT } from "models/RequestProgressTypes";
+import { SELECTED_BID } from "models/RequestBidStatus";
+import { ON_PAYING_FIRST, ON_PAYING_SECOND, ON_REPORTING } from "models/RequestType";
 
 const { Text } = Typography;
 
@@ -41,21 +42,20 @@ const Index = () => {
     const account = useAuthenticationStore(state => state.account)
 
     function displayPaymentFormCondition() {
-        return (request.status === FIRST_PAYMENT || request.status === SECOND_PAYMENT) &&
-            isContainUserRole() && request.user.login == account.login 
+        return (request.status === ON_PAYING_FIRST || request.status === ON_PAYING_SECOND) &&
+            isContainUserRole() && request.user.login == account.login
 
     }
 
     function displayRequestReportFormCondition() {
 
-        const selectedBid = requestBids.find(rb => rb.status === 'SELECTED_BID')
+        const selectedBid = requestBids.find(rb => rb.status === SELECTED_BID)
 
         if (selectedBid === undefined) return false
 
         return isContainCreatorRole() &&
             selectedBid.user.login === account.login &&
-            requestProgresses.length > 0 && requestProgresses.length < 5 &&//report state
-            request.status !== 'FAILED'
+            (request.status == ON_REPORTING || request.status == ON_PAYING_SECOND)
 
     }
 
@@ -94,15 +94,21 @@ const Index = () => {
                 <RequestTimeline requestProgresses={requestProgresses} />
             </Row>
             <Row>
-                <Col span={9}>
+                <Col span={12} className={styles.component}>
                     <h1>Request information</h1>
                     <RequestForm request={request} requestBids={requestBids} />
                     <RequestBidList request={request} requestBids={requestBids} />
                 </Col>
 
+                <Col span={10} className={styles.component}>
+                    <h1>Chatbox</h1>
+                    <RequestChatBox requestId={requestId} request={request} />
+                </Col>
+            </Row>
+            <Row>
                 {
                     displayPaymentFormCondition() &&
-                    <Col span={6}>
+                    <Col span={6} className={styles.component}>
                         <h1>Payment</h1>
                         <Space direction="vertical">
                             <Text mark>Total you have to pay is {requestProgresses.length === 0 ? firstPayment.amount : secondPayment.amount}$</Text>
@@ -115,17 +121,18 @@ const Index = () => {
 
                 }
 
+                <Col span={5} className={styles.component}>
+                    <h1>Request progress list</h1>
+                    <RequestProgressList refreshPage={refreshPage} requestId={requestId} requestProgresses={requestProgresses} />
+                </Col>
+
                 {
                     displayRequestReportFormCondition() &&
-                    <Col span={6}>
+                    <Col span={6} className={styles.component}>
                         <h1>Upload request progress</h1>
                         <RequestProgressReportForm refreshPage={refreshPage} requestId={requestId} />
                     </Col>
                 }
-                <Col span={6}>
-                    <h1>Request progress list</h1>
-                    <RequestProgressList refreshPage={refreshPage} requestId={requestId} requestProgresses={requestProgresses} />
-                </Col>
 
             </Row>
         </>
