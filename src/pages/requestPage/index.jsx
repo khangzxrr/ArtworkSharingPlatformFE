@@ -6,6 +6,8 @@ import { useGetRequestById } from "hooks/getRequestHook";
 import { useGetRequestBidsByRequestId } from "hooks/requestBidHook";
 import styles from './index.module.css'
 import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "stores/authenticationStore";
+import { ON_BIDING } from "models/RequestType";
+import { SELECTED_BID } from "models/RequestBidStatus";
 
 const Index = () => {
 
@@ -28,18 +30,18 @@ const Index = () => {
 
     const showProgressButtonCondition = () => {
 
-
         if (isContainUserRole()) {
-            return request.user && request.user.login === account.login && request.status !== 'ON_BIDING'
+            return request.user && request.user.login === account.login && request.status !== ON_BIDING
         }
 
-
-        const selectedBid = requestBids.find(rb => rb.status === 'SELECTED_BID')
+        const selectedBid = requestBids.find(rb => rb.status === SELECTED_BID)
 
         if (selectedBid === undefined) return false
+
+        console.log(selectedBid)
         
         if (isContainCreatorRole()) {
-            return selectedBid.user.login === account.login && request.status !== 'ON_BIDING'
+            return selectedBid.user.login === account.login && request.status !== ON_BIDING
         }
     }
 
