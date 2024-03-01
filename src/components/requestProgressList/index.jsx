@@ -1,11 +1,13 @@
 
 
 import React, { } from 'react';
-import { Badge, Button, Card, Row, Space, Steps, notification } from 'antd';
+import { Badge, Button, Card, Row, Space, Steps, Typography, notification } from 'antd';
 import { Link } from 'react-router-dom';
 import { isContainUserRole } from 'stores/authenticationStore';
 import { userAcceptRequestProgress, userRejectRequestProgress } from 'services/requestProgressService';
-
+import { dateFormat } from 'utils/dateFormat';
+import styles from './index.module.css'
+import { FIRST_PAYMENT, REPORT, SECOND_PAYMENT } from 'models/RequestProgressTypes';
 
 const Index = (props) => {
 
@@ -57,40 +59,57 @@ const Index = (props) => {
     <>
       {
         props.requestProgresses.map(rp => {
-          if (rp.type === 'FIRST_PAYMENT') {
-            return <Badge.Ribbon text={rp.status} color={mapStatusToColor(rp.status)}>
-              <Card title="First payment" size="small">
-                paid at: {rp.date}
+          if (rp.type === FIRST_PAYMENT) {
+            return <Badge.Ribbon text={rp.status} color={mapStatusToColor(rp.status)} >
+              <Card title="First payment" size="small" className={styles.requestProgress}>
+                <Row>
+                  <Typography.Text>Paid at: <Typography.Text strong>{dateFormat(rp.createdDate)}</Typography.Text></Typography.Text>
+
+                </Row>
+                <Row>
+                  <Typography.Text>With price: <Typography.Text strong>{rp.transaction.amount}$</Typography.Text></Typography.Text>
+                </Row>
+
               </Card>
             </Badge.Ribbon>
           }
-          else if (rp.type === 'SECOND_PAYMENT') {
+          else if (rp.type === SECOND_PAYMENT) {
             return <Badge.Ribbon text={rp.status} color={mapStatusToColor(rp.status)}>
-              <Card title="Second payment" size="small">
-                paid at: {rp.date}
+              <Card title="Second payment" size="small" className={styles.requestProgress}>
+                <Row>
+                  <Typography.Text>Paid at: <Typography.Text strong>{dateFormat(rp.createdDate)}</Typography.Text></Typography.Text>
+
+                </Row>
+                <Row>
+                  <Typography.Text>With price: <Typography.Text strong>{rp.transaction.amount}$</Typography.Text></Typography.Text>
+                </Row>
               </Card>
             </Badge.Ribbon>
           }
-          else if (rp.type.includes('REPORT')) {
+          else if (rp.type === REPORT) {
 
-            return <Badge.Ribbon text={rp.status} color={mapStatusToColor(rp.status)}>
-              <Card
-                title={rp.type}
-                size="small"
-              >
-                <p>created at: {rp.date}</p>
-                <p>description: {rp.description} </p>
-                <Space direction='vertical'>
-                  {
-                    rp.attachments.map(attach => <Link to={attach.media.url}>{attach.media.url}</Link>)
-                  }
-                  {mapReportActions(rp)}
-                </Space>
+            return <Card
+              title={rp.type}
+              className={styles.requestProgress}
+              size="small"
+            >
+               <Row>
+                  <Typography.Text>Created at: <Typography.Text strong>{dateFormat(rp.createdDate)}</Typography.Text></Typography.Text>
 
-                
+                </Row>
+                <Row>
+                  <Typography.Text>With price: <Typography.Text strong>{rp.description}</Typography.Text></Typography.Text>
+                </Row>
+              <Space direction='vertical'>
+                {
+                  rp.attachments.map(attach => <Link to={attach.media.url}>{attach.media.url}</Link>)
+                }
+                {mapReportActions(rp)}
+              </Space>
 
-              </Card>
-            </Badge.Ribbon>
+
+
+            </Card>
           }
         })
 
