@@ -29,7 +29,7 @@ export const creatorGetAllRequestProgressByRequestId = async (requestId) => {
     return response.data
 }
 
-export const creatorCreateRequestProgress = async (requestId, description, attachments, type) => {
+export const creatorCreateRequestProgress = async (requestId, description, attachments, type = 'REPORT') => {
     const response = await userAxios.post(`/creator/requests/${requestId}/request-progresses/reports`, {
         description,
         attachments,
