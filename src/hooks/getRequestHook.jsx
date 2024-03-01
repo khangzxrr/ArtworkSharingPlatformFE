@@ -5,8 +5,6 @@ import { isContainCreatorRole, isContainUserRole } from "stores/authenticationSt
 export const useGetRequestById = (requestId, pageState = 0) => {
     const [request, setRequest] = useState({ status: '', user: { login: '' } })
 
-    console.log('getting request')
-
     useEffect(() => {
         if (isContainUserRole()) {
             userGetRequest(requestId)
