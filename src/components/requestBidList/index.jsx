@@ -1,6 +1,6 @@
 
 
-import { Button, List, notification } from 'antd';
+import { Avatar, Button, Card, List, notification } from 'antd';
 import React from 'react';
 import { audienceChooseRequestBid } from '../../services/requestBidService';
 import { useAuthenticationStore } from '../../stores/authenticationStore';
@@ -13,39 +13,41 @@ const Index = (props) => {
   function chooseRequestBid(requestBidId) {
     console.log(requestBidId)
     audienceChooseRequestBid(props.request.id, requestBidId)
-    .then(response => {
-      notification.info({ message: 'request bid',  description: 'choosed this request bid, you will be redirect soon...'})
+      .then(response => {
+        notification.info({ message: 'request bid', description: 'choosed this request bid, you will be redirect soon...' })
 
-      navigate(`/requests/${props.request.id}/progress`)
-    })
-    .catch(err => {
-      console.log(err)
-      notification.error({ message: 'request bid', description: 'fail to choose this request bid'})
-    })
+        navigate(`/requests/${props.request.id}/progress`)
+      })
+      .catch(err => {
+        console.log(err)
+        notification.error({ message: 'request bid', description: 'fail to choose this request bid' })
+      })
   }
 
   return (
     <>
-    <h1>Request bids</h1>
-    <List
-      className="demo-loadmore-list"
-      loading={false}
-      itemLayout="horizontal"
-      dataSource={props.requestBids}
-      renderItem={(item) => (
-        <List.Item
-        
-          actions={ props.request.user && props.request.user.login === account.login && props.request.status === 'ON_BIDING' ? [<Button type='primary' onClick={() => chooseRequestBid(item.id)}>choose this bid</Button>] : []}
-        >
-          <List.Item.Meta
-            title={`price: ${item.price}$  - ${item.duration} hours ${item.status == 'SELECTED_BID' ? '(Choosed ⭐)' : ''}`}
-            description={item.user.login + ": " + item.description}
-          />
-        </List.Item>
-      )}
-    />
+      <h1>Request bids</h1>
+      <List
+        className="demo-loadmore-list"
+        loading={false}
+        itemLayout="horizontal"
+        dataSource={props.requestBids}
+        renderItem={(item) => (
+          <List.Item
+
+            actions={props.request.user && props.request.user.login === account.login && props.request.status === 'ON_BIDING' ? [<Button type='primary' onClick={() => chooseRequestBid(item.id)}>choose this bid</Button>] : []}
+          >
+            <List.Item.Meta
+              avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg`} />}
+              title={`${item.user.login}: Price: ${item.price}$  - ${item.duration} days ${item.status == 'SELECTED_BID' ? '(Choosed ⭐)' : ''}`}
+            />
+            {item.description}
+
+          </List.Item>
+        )}
+      />
     </>
-    
+
   );
 };
 
