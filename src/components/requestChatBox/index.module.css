@@ -1,0 +1,6 @@
+
+.selectedBid {
+    border: 1px solid #000;
+    border-width: 1px;
+    border-color: green;
+}
