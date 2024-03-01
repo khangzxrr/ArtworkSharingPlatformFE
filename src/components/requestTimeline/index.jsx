@@ -7,7 +7,6 @@ import { FIRST_PAYMENT, REPORT, SECOND_PAYMENT } from 'models/RequestProgressTyp
 
 const Index = (props) => {
 
-  console.log(props.requestProgresses)
 
   let currentTimeline = 0
 
@@ -31,8 +30,6 @@ const Index = (props) => {
   if (existSecondPayment) {
     currentTimeline += 1
   }
-
-  console.log(currentTimeline)
 
 
   const timeline = [
