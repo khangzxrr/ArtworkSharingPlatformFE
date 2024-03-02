@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 
 import React, { useState } from 'react';
@@ -5,21 +6,20 @@ import { Button, Form, Input, Space, notification } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { CloseOutlined } from '@ant-design/icons';
 import { creatorCreateRequestProgress } from 'services/requestProgressService';
+import { FirebaseUploadMedia } from 'components';
 
 const Index = (props) => {
 
   const [form] = Form.useForm();
 
-  const [attachmentFormKeys, setAttachmentFormKeys] = useState([])
+  const [attachmentUrls, setAttachmentUrls] = useState([])
 
   const onFinish = (values) => {
     console.log('Success:', values, props.requestId);
 
-    const attachmentUrls = attachmentFormKeys.map(key => {
-      return values[key]
-    })
+    const urls = attachmentUrls.map(attach => attach.response)
 
-    creatorCreateRequestProgress(props.requestId, values.description, attachmentUrls)
+    creatorCreateRequestProgress(props.requestId, values.description, urls)
     .then(response => {
       notification.info({ message: 'Create request progress', description: 'Create request progress successfully!'})
     })
@@ -33,13 +33,8 @@ const Index = (props) => {
     form.resetFields()
   };
 
-  const addNewAttachmentForm = () => {
-
-    attachmentFormKeys.push(`attachment_${Date.now()}`)
-
-    //generate brand new array for react know it changed
-    setAttachmentFormKeys([...attachmentFormKeys])
-
+  const makeSureAllUploadMediaFinished = () => {
+    return attachmentUrls.find(u => u.status === 'uploading') !== undefined
   }
 
   return (
@@ -74,44 +69,14 @@ const Index = (props) => {
         >
           <TextArea />
         </Form.Item>
-        {
 
-          attachmentFormKeys.map((key) =>
-            <Form.Item
-              key={key}
-              name={key}
-              label="attachment url"
-              rules={[
-                {
-                  required: true,
-                },
-                {
-                  type: 'url',
-                },
-                {
-                  type: 'string',
-                  min: 6,
-                },
-              ]}
-            >
-              <Space direction='horizontal'>
-                <Input />
-                <CloseOutlined
-                  onClick={() => {
-                    const index = attachmentFormKeys.indexOf(key)
-                    attachmentFormKeys.splice(index, 1)
-
-                    setAttachmentFormKeys([...attachmentFormKeys])
-                  }} />
-              </Space>
-            </Form.Item>)
-        }
         <Form.Item>
-          <Button type="default" onClick={() => addNewAttachmentForm()}>Add new attachment url</Button>
+          {attachmentUrls.length}
+          <FirebaseUploadMedia setAttachmentUrls={setAttachmentUrls} />
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={makeSureAllUploadMediaFinished()}>
             Submit report
           </Button>
         </Form.Item>
