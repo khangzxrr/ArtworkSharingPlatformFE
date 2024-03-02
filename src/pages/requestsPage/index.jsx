@@ -19,7 +19,7 @@ const Index = () => {
             }
 
             <Row align={"middle"}>
-                <Col span={6} offset={8}>
+                <Col span={12} offset={6}>
                     <RequestList />
                 </Col>
             </Row>
