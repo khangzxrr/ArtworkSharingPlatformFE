@@ -1,6 +1,8 @@
 
 const BASE_URL = 'http://localhost:8080/api'
 
+const BASE_WEBSOCKET_URL = 'http://localhost:8080/websocket/artwork'
+
 const USER_AUTHORIZE = 'ROLE_USER'
 
 const CREATOR_AUTHORIZE = 'ROLE_CREATOR'
@@ -13,4 +15,4 @@ const PAYPAL_CONFIG = {
     "data-sdk-integration-source": "integrationbuilder_sc",
 }
 
-export { BASE_URL, USER_AUTHORIZE, CREATOR_AUTHORIZE, PAYPAL_CONFIG, ADMIN_AUTHORIZE }
+export { BASE_URL, USER_AUTHORIZE, CREATOR_AUTHORIZE, PAYPAL_CONFIG, ADMIN_AUTHORIZE, BASE_WEBSOCKET_URL }

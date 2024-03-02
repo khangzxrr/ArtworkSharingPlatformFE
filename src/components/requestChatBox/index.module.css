@@ -4,3 +4,9 @@
     border-width: 1px;
     border-color: green;
 }
+
+.chatBox {
+    height: 300px;
+    overflow-anchor: none;
+    overflow-y: auto;
+}

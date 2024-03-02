@@ -18,6 +18,15 @@ export const CreatorCreateChatMessage = async (requestId, message) => {
     return response.data
 }
 
-export const UserGetAllMessage = (requestId, afterId) => userAxios.get(`/audience/requests/${requestId}/chats?afterId=${afterId}`)
+export const UserGetAllRequestChats = async (requestId) => {
 
-export const CreatorGetAllMessage = (requestId, afterId) => userAxios.get(`/creator/requests/${requestId}/chats?afterId=${afterId}`)
+    const response = await userAxios.get(`/audience/requests/${requestId}/chats`)
+
+    return response.data
+}
+
+export const CreatorGetAllRequestChats = async (requestId) => {
+    const response = await userAxios.get(`/creator/requests/${requestId}/chats`)
+
+    return response.data
+}
