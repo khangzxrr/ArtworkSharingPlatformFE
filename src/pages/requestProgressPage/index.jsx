@@ -16,6 +16,9 @@ import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from 
 import { SELECTED_BID } from "models/RequestBidStatus";
 import { ON_PAYING_FIRST, ON_PAYING_SECOND, ON_REPORTING } from "models/RequestType";
 
+import SockJsClient from 'react-stomp'
+import { BASE_WEBSOCKET_URL } from 'utils/constants';
+
 const { Text } = Typography;
 
 const Index = () => {
@@ -40,6 +43,8 @@ const Index = () => {
     const secondPayment = useGetSecondPayment(requestId, pageState)
 
     const account = useAuthenticationStore(state => state.account)
+
+    const accessToken = useAuthenticationStore(state => state.accessToken)
 
     function displayPaymentFormCondition() {
         return (request.status === ON_PAYING_FIRST || request.status === ON_PAYING_SECOND) &&
@@ -87,9 +92,19 @@ const Index = () => {
         })
     }
 
+    const onReceivingMessage = (msg) => {
+        notification.info({ message: 'request update', description: 'there is a new update about this request'})
+        refreshPage()
+    }
+
 
     return (
         <>
+            <SockJsClient
+                url={BASE_WEBSOCKET_URL + `?access_token=${accessToken}`}
+                topics={[`/topic/requests/${requestId}/notification`]}
+                onMessage={(msg) => onReceivingMessage(msg)}
+            />
             <Row className={styles.stepLayout}>
                 <RequestTimeline requestProgresses={requestProgresses} />
             </Row>
