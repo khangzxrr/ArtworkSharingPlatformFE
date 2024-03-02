@@ -98,11 +98,11 @@ const Index = (props) => {
 
                 </Row>
                 <Row>
-                  <Typography.Text>With price: <Typography.Text strong>{rp.description}</Typography.Text></Typography.Text>
+                  <Typography.Text>Description: <Typography.Text strong>{rp.description}</Typography.Text></Typography.Text>
                 </Row>
               <Space direction='vertical'>
                 {
-                  rp.attachments.map(attach => <Link to={attach.media.url}>{attach.media.url}</Link>)
+                  rp.attachments.map((attach, index) => <Link target="_blank" to={attach.media.url}>attachment - {index+1}</Link>)
                 }
                 {mapReportActions(rp)}
               </Space>
