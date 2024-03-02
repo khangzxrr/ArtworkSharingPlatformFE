@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Space, notification } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { CloseOutlined } from '@ant-design/icons';
 import { creatorCreateRequestProgress } from 'services/requestProgressService';
 import { FirebaseUploadMedia } from 'components';
 
