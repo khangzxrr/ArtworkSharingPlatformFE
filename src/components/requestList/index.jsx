@@ -9,12 +9,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { Typography } from 'antd';
 
 import styles from './index.module.css'
+import { dateFormat } from 'utils/dateFormat';
 
 const { Text } = Typography;
 
 const Index = () => {
 
-  const [requests, setRequests] = useState([]);
+  const [request, setRequest] = useState({
+    totalCount: 0,
+    list: []
+  });
 
   const navigate = useNavigate()
 
@@ -27,7 +31,7 @@ const Index = () => {
   useEffect(() => {
     if (isContainUserRole()) {
       userGetRequests().then(response => {
-        setRequests(response);
+        setRequest(response);
 
       }).catch(error => {
         console.log(error);
@@ -37,7 +41,7 @@ const Index = () => {
     } else
       if (isContainCreatorRole()) {
         creatorGetRequests().then(response => {
-          setRequests(response);
+          setRequest(response);
 
         }).catch(error => {
           console.log(error);
@@ -52,10 +56,12 @@ const Index = () => {
     <>
       <List
         pagination={{
+          total: request.totalCount,
+          defaultCurrent: 1,
           position: 'bottom',
           align: 'center',
         }}
-        dataSource={requests}
+        dataSource={request.list}
         rowKey={(item) => item.id}
         renderItem={(item, index) => (
           <Badge.Ribbon text={item.status} color={mapStatusToColor(item.status)}>
@@ -64,9 +70,10 @@ const Index = () => {
                 <Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size="large">
                   {item.user.login}
                 </Avatar>
-                <Text className={styles.description}>
-                  {item.description}
-                </Text>
+                  <Text className={styles.description}>
+                    "{item.description}" - {dateFormat(item.createdDate)}
+                  </Text>
+
               </Row>
             </Card>
           </Badge.Ribbon>
