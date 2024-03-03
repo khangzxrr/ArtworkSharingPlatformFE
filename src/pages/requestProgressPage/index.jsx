@@ -1,4 +1,4 @@
-import { Button, Col, Form, Row, Space, notification } from "antd";
+import { Button, Col, Divider, FloatButton, Form, Popconfirm, Row, Space, notification } from "antd";
 import React, { useState } from "react";
 import { RequestBidList, RequestChatBox, RequestForm, RequestProgressList, RequestProgressReportForm, RequestTimeline } from "../../components";
 import { useParams } from "react-router-dom";
@@ -11,13 +11,17 @@ import { useGetFirstPayment, useGetSecondPayment } from "hooks/requestPaymentHoo
 
 import { Typography } from 'antd';
 import { payFirstPayment, paySecondPayment } from "services/requestPaymentService";
-import { userGetCurrentRequestStep } from "services/requestService";
+import { audienceRefund, userGetCurrentRequestStep } from "services/requestService";
 import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "stores/authenticationStore";
 import { SELECTED_BID } from "models/RequestBidStatus";
-import { ON_PAYING_FIRST, ON_PAYING_SECOND, ON_REPORTING } from "models/RequestType";
+import { ENDED, FAILED, ON_BIDING, ON_PAYING_FIRST, ON_PAYING_SECOND, ON_REPORTING } from "models/RequestType";
 
 import SockJsClient from 'react-stomp'
 import { BASE_WEBSOCKET_URL } from 'utils/constants';
+import { FIRST_PAYMENT } from "models/RequestProgressTypes";
+import moment from "moment";
+import { translateErrorToNotify } from "utils/errorHandle";
+
 
 const { Text } = Typography;
 
@@ -64,6 +68,23 @@ const Index = () => {
 
     }
 
+    function calculateDeadlineDay() {
+
+        const selectedBid = requestBids.find(rb => rb.status === SELECTED_BID)
+
+        const firstPayment = requestProgresses.find(rp => rp.type === FIRST_PAYMENT)
+
+        if (selectedBid == undefined || firstPayment == undefined) {
+            return 'Deadline date will be calculate when paid first payment'
+        }
+
+        console.log(selectedBid, firstPayment)
+
+        const deadLineDay = moment(firstPayment.createdDate).add(selectedBid.duration, 'days')
+
+        return 'Request will close at ' + deadLineDay.format('MMMM Do YYYY, h:mm:ss a')
+    }
+
 
     function pay() {
         console.log('pay')
@@ -91,12 +112,20 @@ const Index = () => {
             refreshPage()
         })
     }
-
+//choose bid higher wallet
     const onReceivingMessage = (msg) => {
-        notification.info({ message: 'request update', description: 'there is a new update about this request'})
+        notification.info({ message: 'request update', description: 'there is a new update about this request' })
         refreshPage()
     }
 
+
+    const refund = () => {
+        audienceRefund(requestId).then(response => {
+            notification.success({ message: 'refund', description: `refund successfully! days passed: ${response.dayPassed}, refund amount: ${response.refundAmount}$`, duration: 0 },)
+            refreshPage()
+        })
+            .catch(error => translateErrorToNotify(error))
+    }
 
     return (
         <>
@@ -105,13 +134,29 @@ const Index = () => {
                 topics={[`/topic/requests/${requestId}/notification`]}
                 onMessage={(msg) => onReceivingMessage(msg)}
             />
+            <Row justify='center'>
+                <h1>{calculateDeadlineDay()}</h1>
+            </Row>
             <Row className={styles.stepLayout}>
-                <RequestTimeline requestProgresses={requestProgresses} />
+                <RequestTimeline requestProgresses={requestProgresses} request={request} />
             </Row>
             <Row>
                 <Col span={12} className={styles.component}>
                     <h1>Request information</h1>
                     <RequestForm request={request} requestBids={requestBids} />
+                    {
+                        request.status !== FAILED && request.status !== ENDED && request.status !== ON_BIDING && request.status !== ON_PAYING_FIRST &&
+                        <Popconfirm
+                            title="Refund and Close request"
+                            description="Are you sure to close and refund this request ? (you CANNOT undo)"
+                            onConfirm={refund}
+                            okText="Yes"
+                            cancelText="No"
+                        >
+                            <Button danger>Cancel & refund</Button>
+                        </Popconfirm>
+                    }
+
                     <RequestBidList request={request} requestBids={requestBids} />
                 </Col>
 
@@ -128,9 +173,16 @@ const Index = () => {
                         <Space direction="vertical">
                             <Text mark>Total you have to pay is {requestProgresses.length === 0 ? firstPayment.amount : secondPayment.amount}$</Text>
                             {requestProgresses.length === 0 ? <Text>This is 80% of choosed request bid's price</Text> : <Text>This is 20% of choosed request bid's price and 5% platform service fee</Text>}
-                            <Button type="primary" block onClick={() => pay()}>
-                                Click here to pay {requestProgresses.length === 0 ? 'first payment' : 'second payment'}
-                            </Button>
+
+                            <Popconfirm
+                                title={requestProgresses.length === 0 ? 'First payment' : 'Fecond payment'}
+                                description="Are you sure to pay payment?"
+                                onConfirm={pay}
+                                okText="Yes"
+                                cancelText="No"
+                            >
+                                <Button block type="primary">Click here to pay {requestProgresses.length === 0 ? 'first payment' : 'second payment'}</Button>
+                            </Popconfirm>
                         </Space>
                     </Col>
 
