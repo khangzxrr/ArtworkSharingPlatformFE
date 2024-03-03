@@ -5,6 +5,7 @@ import React from 'react';
 import { audienceChooseRequestBid } from '../../services/requestBidService';
 import { useAuthenticationStore } from '../../stores/authenticationStore';
 import { useNavigate } from 'react-router-dom';
+import { ON_BIDING } from 'models/RequestType';
 const Index = (props) => {
 
   const navigate = useNavigate()
@@ -14,19 +15,19 @@ const Index = (props) => {
     console.log(requestBidId)
     audienceChooseRequestBid(props.request.id, requestBidId)
       .then(response => {
-        notification.info({ message: 'request bid', description: 'choosed this request bid, you will be redirect soon...' })
+        notification.info({ message: 'request deal', description: 'choosed this deal, you will be redirect soon...' })
 
         navigate(`/requests/${props.request.id}/progress`)
       })
       .catch(err => {
         console.log(err)
-        notification.error({ message: 'request bid', description: 'fail to choose this request bid' })
+        notification.error({ message: 'request deal', description: 'fail to choose this request deal' })
       })
   }
 
   return (
     <>
-      <h1>Request bids</h1>
+      <h1>Request deals</h1>
       <List
         className="demo-loadmore-list"
         loading={false}
@@ -35,7 +36,7 @@ const Index = (props) => {
         renderItem={(item) => (
           <List.Item
 
-            actions={props.request.user && props.request.user.login === account.login && props.request.status === 'ON_BIDING' ? [<Button type='primary' onClick={() => chooseRequestBid(item.id)}>choose this bid</Button>] : []}
+            actions={props.request.user && props.request.user.login === account.login && props.request.status === ON_BIDING ? [<Button type='primary' onClick={() => chooseRequestBid(item.id)}>choose this deal</Button>] : []}
           >
             <List.Item.Meta
               avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg`} />}

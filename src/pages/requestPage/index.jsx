@@ -82,7 +82,7 @@ const Index = () => {
                 </Col>
                 {(request.user.login !== account.login && isContainCreatorRole() && request.status === 'ON_BIDING') &&
                     <Col span={6} offset={3}>
-                        <h2>Place a new request bid</h2>
+                        <h2>Place a new deal</h2>
 
                         <RequestBidForm refreshPage={refreshPage} requestId={requestId} />
 
