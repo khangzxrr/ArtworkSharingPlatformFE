@@ -3,6 +3,7 @@
 import React, { } from 'react';
 import { Steps } from 'antd';
 import { FIRST_PAYMENT, REPORT, SECOND_PAYMENT } from 'models/RequestProgressTypes';
+import { FAILED } from 'models/RequestType';
 
 
 const Index = (props) => {
@@ -30,8 +31,7 @@ const Index = (props) => {
   if (existSecondPayment) {
     currentTimeline += 1
   }
-
-
+  
   const timeline = [
     {
       title: 'First payment',
@@ -51,6 +51,7 @@ const Index = (props) => {
     <Steps
       current={currentTimeline}
       items={timeline}
+      status={props.request.status === FAILED ? 'error' : null}
     />
   );
 };
