@@ -16,12 +16,12 @@ const Index = (props) => {
     creatorCreateRequestBid(props.requestId, values.bidDescription, values.bidPrice, values.bidDuration)
     .then(response => {
       console.log(response)
-      notification.info({ message: 'Create request bid', description: 'Create request bid successfully!'})
+      notification.info({ message: 'Create new deal', description: 'Create a deal successfully!'})
       form.resetFields()
     })
     .catch(error => {
       console.log(error)
-      notification.error({ message: 'Create request bid', description: 'Create request bid failed! please try again'})
+      notification.error({ message: 'Create new deal', description: 'Create a deal failed! please try again'})
     })
     .finally(() => props.refreshPage())
 
@@ -45,12 +45,12 @@ const Index = (props) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Bid description"
+          label="Deal description"
           name="bidDescription"
           rules={[
             {
               required: true,
-              message: 'Please input bid description!',
+              message: 'Please input deal description!',
             },
           ]}
         >
@@ -58,12 +58,12 @@ const Index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Bid price ($)"
+          label="Deal price ($)"
           name="bidPrice"
           rules={[
             {
               required: true,
-              message: 'Please input bid price!',
+              message: 'Please input deal price!',
             },
           ]}
         >
@@ -71,12 +71,12 @@ const Index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Bid duration"
+          label="Deal duration"
           name="bidDuration"
           rules={[
             {
               required: true,
-              message: 'Please input bid duration!',
+              message: 'Please input deal duration (days)!',
             },
           ]}
         >
@@ -90,7 +90,7 @@ const Index = (props) => {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Create a new bid
+            Create a new deal
           </Button>
         </Form.Item>
 
