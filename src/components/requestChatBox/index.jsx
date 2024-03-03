@@ -16,7 +16,6 @@ const Index = (props) => {
   const accessToken = useAuthenticationStore(state => state.accessToken)
 
   const socketClientRef = useRef(undefined)
-  const lastMessageRef = useRef(undefined);
 
   const [messages, setMessages] = useState([])
 
@@ -71,8 +70,6 @@ const Index = (props) => {
               </List.Item.Meta>
               <div ref={el => {
                 if (item.id == messages[messages.length - 1].id){
-                  lastMessageRef.current = el
-                  console.log('set last message', lastMessageRef)
                   el?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'end' })
                 }
               }}></div>
