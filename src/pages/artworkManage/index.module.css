@@ -1,0 +1,377 @@
+.live-auction{
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+.live-auction .section-bg2 {
+    position: absolute;
+    top: 7%;
+    right: 0%;
+}
+.live-auction .dotted3 {
+    position: absolute;
+    bottom: -40px;
+    left: -80px;
+    -webkit-animation: move 2.6s linear infinite;
+    animation: move 2.6s linear infinite;
+}
+.section-title2 h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1f2230;
+    margin-top: -5px;
+}
+.section-title2 p {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: inter, sans-serif;
+    color: #696969;
+}
+.btn--md {
+    padding: 14px 45px;
+    font-size: 16px;
+    font-weight: 700;
+}
+.btn--sm {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 12px;
+}
+.btn--primary2 {
+    background: #1f2230;
+    color: #fff !important;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+    border-radius: 100px;
+}
+.btn--update {
+    background: #66d490;
+    color: #fff !important;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+    border-radius: 100px;
+    margin: 2px;
+}
+.btn--delete {
+    background: #d16e6e;
+    color: #fff !important;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+    border-radius: 100px;
+    margin: 2px;
+}
+.eg-btn {
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    transition: all .4s ease;
+    text-transform: capitalize;
+    font-family: saira, sans-serif;
+}
+.auction-card2 {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    box-shadow: 5px 2px 30px rgba(0,0,0,.06);
+    border-radius: 10px;
+    padding: 15px 15px 0;
+}
+.eg-card-change{
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 5px !important;
+    height: 50px !important;
+}
+.eg-card-change .change{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.eg-card-change .change span{
+    /* color: #1f2230; */
+    font-weight: bold;
+    font-size:18px;
+    transition: 0.1s ease-in-out;
+    z-index: 1;
+}
+.eg-card-change .b-change{
+    width: 50%;
+    height: 38px;
+    background: #1f2230;
+    border-radius: 5px;
+    position: absolute;
+    transition: transform 0.3s ease-in-out;
+}
+.eg-card-change .c-change{
+    transform: translateX(148px);
+    transition: transform 0.3s ease-in-out;
+}
+.eg-card {
+    border-radius: 5px;
+    border: 1px solid #eee;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+}
+.auction-card2 .auction-img {
+    position: relative;
+    overflow: hidden;
+}
+.auction-card2 .auction-content {
+    padding: 30px 25px;
+}
+.auction-card2 .auction-img img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    transition: all .65s ease;
+}
+.auction-card2:hover .auction-img img {
+    transform: scale(1.2);
+    border-radius: 10px;
+}
+.auction-card2 .auction-img .auction-timer {
+    border-radius: 15px 15px 0 0;
+    padding: 12px 15px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    background: #fff;
+    min-width: 230px;
+}
+.auction-card2:hover .auction-img .auction-timer .countdown h5 {
+    color: #444;
+}
+.auction-card2 .auction-img .auction-timer .countdown h5 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #444;
+    margin-bottom: 0;
+    white-space: nowrap;
+    transition: all .42s ease;
+}
+.auction-card2 .auction-content h4 {
+    font-size: 23px;
+    font-weight: 600;
+    color: #1f2230;
+    line-height: 1.5;
+    margin-top: -7px;
+}
+.auction-card2 .author-price-area {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 15px;
+}
+.auction-card2 .auction-card-bttm {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 20px;
+}
+.auction-card2 .author-price-area .author img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.auction-card2 .author-price-area .author span.name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #696969;
+}
+.auction-card2 .author-price-area p {
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #f9395f;
+    font-family: saira, sans-serif;
+}
+.mb-50 {
+    margin-bottom: 50px;
+}
+.nav-item img {
+    max-width: 150px;
+    width: 100%;
+    border-radius: 5px;
+    height: 120px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all .62s ease;
+}
+.tab-content .auction-gallery-timer {
+    background-color: #1f2230;
+    border-radius: 5px 4px 0 0;
+    text-align: center;
+    padding: 10px 20px;
+}
+.tab-content .auction-gallery-timer h3{
+   color: #FFF;
+}
+.tab-content img {
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+}
+.product-details-right h3 {
+    font-size: 30px;
+    font-weight: 700;
+    font-family: saira, sans-serif;
+    color: #1f2230;
+    margin-bottom: 10px;
+}
+.product-details-right p {
+    margin-bottom: 20px;
+}
+.para {
+    font-size: 16px;
+    font-weight: 400;
+    color: #696969;
+    font-family: inter, sans-serif;
+    line-height: 28px;
+}
+.product-details-right h4 {
+    font-size: 25px;
+    font-weight: 400;
+    color: #1f2230;
+}
+.product-details-right h4 span {
+    font-weight: 700;
+}
+.product-details-right .bid-form {
+    margin-top: 40px;
+    box-shadow: 5px 2px 30px rgba(0,0,0,.06);
+    border-radius: 5px;
+    background: #fff;
+    padding: 25px;
+}
+.product-details-right .bid-form .form-title {
+    padding-bottom: 3px;
+    margin-bottom: 20px;
+}
+.product-details-right .bid-form .form-title h5 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1f2230;
+}
+.product-details-right .bid-form .form-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product-details-right .bid-form .form-inner input[type=text] {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    padding: 11px 15px;
+    transition: all .42s ease;
+}
+.product-details-right .bid-form .form-inner button {
+    outline: none;
+    border: none;
+    padding: 10px 35px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: saira, sans-serif;
+}
+.bid-list-area {
+    max-height: 350px;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: 3px 5px 20px rgba(0,0,0,.06);
+    border-radius: 0 0 5px 5px;
+    padding: 0 20px;
+}
+.bid-list {
+    padding-left: 0;
+    list-style: none;
+}
+.bid-list li:last-child {
+    border-bottom: unset;
+    padding-bottom: 0;
+}
+.bid-list li {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+}
+.bid-list .bidder-area {
+    display: flex;
+    align-items: center;
+    /* justify-content: start; */
+    /* flex-wrap: wrap; */
+}
+.bid-list .bidder-area .bidder-img {
+    margin-right: 25px;
+}
+.bid-list .bidder-area .bidder-img img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.tab-content img {
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+}
+.bid-list .bidder-area .bidder-content p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #696969;
+    font-family: inter, sans-serif;
+    margin-bottom: 0;
+}
+.bid-list .bidder-area .bidder-content h6 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2230;
+    margin-bottom: 3px;
+    font-family: saira, sans-serif;
+}
+.bid-list .bid-time p {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inter, sans-serif;
+    color: #696969;
+}
+.submenu {
+   width: 110px;text-align: center;
+}
+.submenu p{
+   font-size:1rem;
+   font-weight: 600;
+   color: #1f2230;
+    padding: 5px;
+   margin-bottom: 5px;
+   transition: all .2s ease-in-out;
+   cursor: pointer;
+}
+.submenu p:hover{
+    border-radius: 5px;
+    background-color: #dcebfd;
+    box-shadow: 5px 3px 40px rgba(0,72,88,.1);
+}
+.upload{
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px dashed #d9d9d9;
+    width: 90px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+}

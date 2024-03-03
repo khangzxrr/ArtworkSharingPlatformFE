@@ -2,7 +2,7 @@ import { Button } from "antd";
 import React from "react";
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from "react-router-dom";
-import { LogoutButton, PostButton } from "../../components";
+import { LogoutButton, SellButton , PostButton} from "../../components";
 
 const { Header, Content} = Layout;
 
@@ -23,6 +23,10 @@ const items = [
     {
         key: 'auction',
         label: 'auction'
+    }, 
+    {
+        key: 'artworks management', 
+        label: 'artworks management'
     }
 ]
 
@@ -65,8 +69,11 @@ const Index = () => {
               <span>Auction</span>
               <Link to="/auction" />
             </Menu.Item>
+            <Menu.Item>
+              <span>Artwork Management</span>
+              <Link to="/artworksManagement" />
+            </Menu.Item>
           </Menu>
-          <PostButton />
           <LogoutButton />
         </Header>
         <Content
