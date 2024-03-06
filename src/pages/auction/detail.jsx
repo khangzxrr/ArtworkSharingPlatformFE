@@ -8,7 +8,9 @@ function AuctionDetail() {
     <div>
       <Header />
       <div className={`${styles["live-auction"]}`}>
-        <div className="container position-relative">
+        <div
+          style={{ maxWidth: "1320px", position: "relative", margin: "auto" }}
+        >
           <img
             alt=""
             src="assets/images/bg/dotted2.png"
@@ -26,7 +28,7 @@ function AuctionDetail() {
                 <p className="mb-0">Home / Auction Details</p>
               </div>
             </div>
-            <div className="col-xl-6 col-lg-4 col-xl-6 text-lg-end text-center">
+            <div className="col-xl-6 col-lg-4 col-xl-6 text-lg-end text-center" style={{textAlign: "center"}}>
               <Link
                 to="/auction"
                 className={`${styles["eg-btn"]} ${styles["btn--primary2"]} ${styles["btn--md"]}`}
@@ -37,60 +39,6 @@ function AuctionDetail() {
           </div>
           <div className={`row g-4 ${styles["mb-50"]}`}>
             <div className="col-xl-6 col-lg-7 d-flex flex-row align-items-start justify-content-lg-start justify-content-center flex-md-nowrap flex-wrap gap-4">
-              <ul
-                className="nav small-image-list d-flex flex-md-column flex-row justify-content-center gap-4  wow fadeInDown"
-                data-wow-duration="1.5s"
-                data-wow-delay=".4s"
-                style={{
-                  visibility: "visible",
-                  animationDuration: "1.5s",
-                  animationDelay: "0.4s",
-                  animationName: "fadeInDown",
-                }}
-              >
-                <li className={`${styles["nav-item"]}`}>
-                  <div
-                    id="details-img1"
-                    data-bs-toggle="pill"
-                    data-bs-target="#gallery-img1"
-                    aria-controls="gallery-img1"
-                  >
-                    <img
-                      alt=""
-                      src="https://www.artmajeur.com/medias/standard/a/u/aurelio-bentes-bravo/artwork/17093506_tapetum-lucidum1.jpg?v=1692558339"
-                      className="img-fluid"
-                    />
-                  </div>
-                </li>
-                <li className={`${styles["nav-item"]}`}>
-                  <div
-                    id="details-img2"
-                    data-bs-toggle="pill"
-                    data-bs-target="#gallery-img2"
-                    aria-controls="gallery-img2"
-                  >
-                    <img
-                      alt=""
-                      src="https://www.artmajeur.com/medias/standard/a/u/aurelio-bentes-bravo/artwork/17093506_tapetum-lucidum1.jpg?v=1692558339"
-                      className="img-fluid"
-                    />
-                  </div>
-                </li>
-                <li className={`${styles["nav-item"]}`}>
-                  <div
-                    id="details-img3"
-                    data-bs-toggle="pill"
-                    data-bs-target="#gallery-img3"
-                    aria-controls="gallery-img3"
-                  >
-                    <img
-                      alt=""
-                      src="https://www.artmajeur.com/medias/standard/a/u/aurelio-bentes-bravo/artwork/17093506_tapetum-lucidum1.jpg?v=1692558339"
-                      className="img-fluid"
-                    />
-                  </div>
-                </li>
-              </ul>
               <div
                 className={`${styles["tab-content"]} mb-4 d-flex justify-content-lg-start justify-content-center  wow fadeInUp`}
                 data-wow-duration="1.5s"
@@ -358,7 +306,7 @@ function AuctionDetail() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

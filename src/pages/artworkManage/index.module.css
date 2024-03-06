@@ -75,7 +75,7 @@
     font-family: saira, sans-serif;
 }
 .auction-card2 {
-    width: 100%;
+    /* width: 100%; */
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
@@ -104,14 +104,14 @@
 }
 .eg-card-change .b-change{
     width: 50%;
-    height: 38px;
+    height: 50px;
     background: #1f2230;
     border-radius: 5px;
     position: absolute;
     transition: transform 0.3s ease-in-out;
 }
 .eg-card-change .c-change{
-    transform: translateX(148px);
+    transform: translateX(163px);
     transition: transform 0.3s ease-in-out;
 }
 .eg-card {

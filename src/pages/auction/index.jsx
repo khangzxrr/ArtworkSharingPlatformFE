@@ -11,9 +11,11 @@ const index = () => {
         <img
           alt=""
           src="https://demo.egenslab.com/html/bidout/preview/assets/images/bg/section-bg2.png"
-          className={`img-fluid ${styles["section-bg2"]}`}
+          className={`${styles["section-bg2"]}`}
         />
-        <div className="container position-relative">
+        <div
+          style={{ maxWidth: "1320px", position: "relative", margin: "auto" }}
+        >
           <img
             alt=""
             src="assets/images/bg/dotted2.png"
@@ -28,21 +30,21 @@ const index = () => {
                 className={`${styles["section-title2"]} text-lg-start text-center`}
               >
                 <h2>Live Auction</h2>
-                <p className="mb-0">
+                {/* <p className="mb-0">
                   Explore on the world's best &amp; largest Bidding marketplace
                   with our beautiful Bidding products. We want to be a part of
                   your smile, success and future growth.
-                </p>
+                </p> */}
               </div>
             </div>
-            <div className="col-xl-6 col-lg-4 col-xl-6 text-lg-end text-center">
+            {/* <div className="col-xl-6 col-lg-4 col-xl-6 text-lg-end text-center">
               <Link
                 to="#"
                 className={`${styles["eg-btn"]} ${styles["btn--primary2"]} ${styles["btn--md"]}`}
               >
                 View All
               </Link>
-            </div>
+            </div> */}
           </div>
           <div className="row gy-4 d-flex justify-content-center">
             <div className="col-lg-4 col-md-6 col-sm-10 ">
@@ -702,7 +704,7 @@ const index = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

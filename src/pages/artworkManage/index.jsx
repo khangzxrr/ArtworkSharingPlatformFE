@@ -219,7 +219,9 @@ const Index = () => {
           src="https://demo.egenslab.com/html/bidout/preview/assets/images/bg/section-bg2.png"
           className={`img-fluid ${styles["section-bg2"]}`}
         />
-        <div className="container position-relative">
+        <div
+          style={{ maxWidth: "1320px", position: "relative", margin: "auto" }}
+        >
           <img
             alt=""
             src="assets/images/bg/dotted2.png"
@@ -229,14 +231,14 @@ const Index = () => {
             className="row d-flex justify-content-center align-items-center g-4"
             style={{ marginBottom: "40px" }}
           >
-            <div className="col-sm-12 col-md-10 col-lg-8 col-xl-6">
+            <div className="col-xl-6">
               <div
                 className={`${styles["section-title2"]} text-lg-start text-center`}
               >
                 <h2>Artworks Management</h2>
               </div>
             </div>
-            <div className="col-xl-6 col-lg-4 col-xl-6 text-lg-end text-center">
+            <div className="col-xl-6 text-lg-end text-center">
               <Popover
                 placement="bottom"
                 content={content}
@@ -434,7 +436,10 @@ const Index = () => {
                 </Form>
               </Modal>
             </div>
-            <div className={`text-center`} style={{ marginTop: "30px" }}>
+            <div
+              className={`text-center`}
+              style={{ marginTop: "30px", width: "100%" }}
+            >
               <div
                 className={`${styles["eg-card-change"]} ${styles["eg-card"]} ${styles["auction-card2"]}`}
                 style={{
@@ -625,7 +630,7 @@ const Index = () => {
                             className={`${styles["eg-btn"]} ${styles["btn--primary2"]} ${styles["btn--md"]}`}
                             onClick={() => showModalD(data.id)}
                           >
-                            Sell 
+                            Sell
                           </Link>
                           <Modal
                             title={"Direct sales"}
