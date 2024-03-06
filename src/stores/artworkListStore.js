@@ -1,12 +1,15 @@
 import { audienceGetPublicArtworks, creatorGetPublicArtworks } from "services/artworkService";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "./authenticationStore";
+import { isContainCreatorRole, isContainUserRole } from "./authenticationStore";
 
 export const useArtworkListStore = create(devtools(
     (set, get) => ({
         artworks: [],
         totalCount: 0,
+        getThumbnailAsset: (artwork) => {
+            return artwork.artworkAssets.filter(as => as.thumbnail === true)[0]
+        },
         fetchArtworks: async () => {
             let response = {}
 
@@ -17,8 +20,6 @@ export const useArtworkListStore = create(devtools(
             if (isContainCreatorRole()) {
                 response = await creatorGetPublicArtworks()
             }   
-
-            console.log(response)
             
             set({ artworks: response.list, totalCount: response.totalCount })
         }
