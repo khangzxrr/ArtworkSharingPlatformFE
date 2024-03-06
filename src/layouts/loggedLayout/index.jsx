@@ -60,11 +60,15 @@ const Index = () => {
                         <Link to="/profile" />
                     </Menu.Item>
                     <Menu.Item>
+                        <span>My artworks</span>
+                        <Link to="/mine/artworks" />
+                    </Menu.Item>
+                    <Menu.Item>
                         <span>Requests</span>
                         <Link to="/requests" />
                     </Menu.Item>
                     <Menu.Item>
-                        <span>Artworks</span>
+                        <span>Public artworks</span>
                         <Link to="/artworks" />
                     </Menu.Item>
                 </Menu>
