@@ -1,18 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { Flex } from "antd";
+import React from "react";
+import { Button, Col, FloatButton, Row } from "antd";
+import { RequestList } from "../../components";
+import { Link, useNavigate } from "react-router-dom";
 import {
-    DatePicker,
-    Form,
-    Input,
-} from 'antd';
-import { getAccount } from "../../services/authenticationService";
+    PlusOutlined
+} from '@ant-design/icons';
+import { isContainUserRole } from "stores/authenticationStore";
 
 const Index = () => {
 
+    const navigate = useNavigate()
+    
     return (
-        <Flex align="center" gap="middle" vertical style={{ padding: 15, }}>
-           Request page
-        </Flex>
+        <>
+            {
+                isContainUserRole() &&
+                <FloatButton onClick={() => navigate('/create-request')} icon={<PlusOutlined />} type="primary" style={{ right: 24 }} />
+            }
+
+            <Row align={"middle"}>
+                <Col span={12} offset={6}>
+                    <RequestList />
+                </Col>
+            </Row>
+
+        </>
+
     )
 }
 

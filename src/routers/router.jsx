@@ -1,35 +1,44 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import { AuthenticationValidate, Home, LoggedHome, Login, Profile, Register, Request , Artwork, Auction, ArtworkManagement} from  '../pages';
-import AuctionDetail from "../pages/auction/detail";
+import { Artwork, ArtworkManagement, Auction, AuthenticationValidate, CreateRequest, Home, LoggedHome, Login, Profile, Request, RequestProgressPage, Requests } from '../pages';
+import React from "react";
+import AuctionDetail from "pages/auction/detail";
 
 const Routers = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
+    path: '/',
+    element: <Home />
   },
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
   },
   {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    // element: <AuthenticationValidate />,
+    element: <AuthenticationValidate />,
     children: [
       // {
       //     path: '/logged-home',
       //     element: <LoggedHome />
       // },
       {
-        path: "/profile",
-        element: <Profile />,
+        path: '/profile',
+        element: <Profile />
       },
       {
-        path: "/requests",
-        element: <Request />,
+        path: '/requests',
+        element: <Requests />
+      },
+      {
+        path: '/requests/:requestId',
+        element: <Request />
+      },
+      {
+        path: '/create-request',
+        element: <CreateRequest />
+      },
+      {
+        path: '/requests/:requestId/progress',
+        element: <RequestProgressPage />
       },
       {
         path: "/artworks",
@@ -44,10 +53,10 @@ const Routers = createBrowserRouter([
         element: <AuctionDetail />,
       },
       {
-        path: "/artworksManagement", 
-        element: <ArtworkManagement/>
+        path: "/artworksManagement",
+        element: <ArtworkManagement />
       }
-    ],
-  },
-]);
+    ]
+  }
+])
 export default Routers;

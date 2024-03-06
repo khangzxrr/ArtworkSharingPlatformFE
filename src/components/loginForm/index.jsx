@@ -2,24 +2,35 @@ import { Button, Card, Form, Input, Checkbox, notification } from "antd";
 import React from "react";
 
 import styles from "./index.module.css";
-import { loginService } from "../../services/authenticationService";
-import { useAuthenticationStore } from "../../stores/authenticationStore";
+import { getAccount, login } from "../../services/authenticationService";
+import { setAccount, setToken, useAuthenticationStore } from "../../stores/authenticationStore";
 import { useNavigate, Link } from "react-router-dom";
+import { getFCMToken } from "firebase_init";
 
 
 const Index = () => {
   
-  const setAccessToken = useAuthenticationStore(state => state.setAccessToken)
   const navigate = useNavigate()
 
   const onFinish = async (fields) => {
-    loginService(fields.username, fields.password, fields.remember).then(response => {
-      console.log(response)
+
+    login(fields.username, fields.password, fields.remember).then(token => {
+      setToken(token)
+
+      return getAccount()
+    })
+    .then(account => {
+
+      getFCMToken().then(response => console.log('registed new token!'))
+
+      setAccount(account)
+
       notification.info({ message: 'login succeed', description: 'you will be redirect in seconds...'})
-      setAccessToken(response) 
-      navigate('/')
       
-    }).catch(err => {
+      navigate('/profile')
+
+    })
+    .catch(err => {
       console.log(err)
       notification.error({ message: 'login failed', description: 'please check again' })
     })
