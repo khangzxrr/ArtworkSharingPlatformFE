@@ -51,7 +51,10 @@ const Index = () => {
     }
 
     const onReceivingMessage = (msg) => {
-        refreshPage()
+        setTimeout(() => {
+            console.log('receiving message from websocket, reload page')
+            refreshPage()
+        }, 1000)
     }
 
 
