@@ -2,11 +2,11 @@
 
 
 import React, { useState } from 'react';
-import { Modal, Upload, notification } from 'antd';
-import { storage } from 'firebase_init';
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { Modal, Upload } from 'antd';
+
 
 import { PlusOutlined } from '@ant-design/icons';
+import { customUpload } from 'utils/upload';
 
 const Index = (props) => {
 
@@ -35,28 +35,7 @@ const Index = (props) => {
 
   }
 
-  const customUpload = ({ onError, onSuccess, file, onProgress }) => {
 
-    const storageRef = ref(storage, `${file.name}`)
-
-    const uploadTask = uploadBytesResumable(storageRef, file)
-
-    uploadTask.on('state_changed', (snapshot) => {
-      console.log(snapshot.bytesTransferred)
-      onProgress({ percent: (snapshot.bytesTransferred / snapshot.totalBytes) * 100 })
-    },
-      (error) => {
-        console.log(error)
-        notification.error({ message: 'upload', description: 'something wrong with upload, please try again!' })
-        onError(error)
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(s => {
-          onSuccess(s)
-        })
-      })
-
-  }
 
   const uploadButton = (
     <button style={{ border: 0, background: 'none' }} type="button">
