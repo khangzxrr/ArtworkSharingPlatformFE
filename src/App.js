@@ -1,11 +1,10 @@
 import Routers from './routers/router'
 import './App.css'
+import React from 'react'
 
 function App() {
-  <div style={{textAlign:'center', width:'100vw'}}>
-    <h1>Konnect with Ahsan</h1>
-    <Routers />
-  </div>
+  // @ts-ignore
+  return ( <Routers />)
 }
 
 export default App
