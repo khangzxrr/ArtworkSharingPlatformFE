@@ -1,43 +1,47 @@
 
 
-import React, { useEffect } from 'react';
-import { Avatar, Badge, Card, List, Row } from 'antd';
+import React from 'react';
+import { Badge, Card, List, Row } from 'antd';
 import { useNavigate } from "react-router-dom";
 
 import { Typography } from 'antd';
 
 import styles from './index.module.css'
 import { dateFormat } from 'utils/dateFormat';
-import { useArtworkListStore } from 'stores/artworkListStore';
 
 const { Text } = Typography;
 
-const Index = () => {
+const Index = (props) => {
 
   const navigate = useNavigate()
-
-  const artworkListStore = useArtworkListStore()
-
-
-  useEffect(() => {
-    artworkListStore.fetchArtworks()
-  }, [])
 
 
   return (
     <>
       <List
         pagination={{
-          total: 0,
+          total: props.totalCount,
           defaultCurrent: 1,
           position: 'bottom',
           align: 'center',
         }}
-        dataSource={artworkListStore.artworks}
+        dataSource={props.artworks}
         rowKey={(item) => item.id}
         renderItem={(item, index) => (
-          <Badge.Ribbon text={item.status}>
-            <Card hoverable title={item.title} className={styles.request} onClick={() => navigate(`/requests/${item.id}`)}>
+          <Badge.Ribbon text={item.category.name}>
+            <Card
+              hoverable
+              title={`${item.name} by ${item.owner.login}`}
+              className={styles.request}
+              onClick={() => navigate(`/requests/${item.id}`)}
+              cover={
+                <img 
+                  alt={item.name}
+                  className={styles.artworkImage}
+                  src={item.artworkAssets.filter(as => as.thumbnail === true)[0].media.url}
+                />
+              }
+            >
               <Row>
                 {/* <Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size="large">
                   {item.user.login}
