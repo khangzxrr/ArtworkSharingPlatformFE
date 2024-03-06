@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 import { getAccount, login } from "../../services/authenticationService";
 import { setAccount, setToken, useAuthenticationStore } from "../../stores/authenticationStore";
 import { useNavigate } from "react-router-dom";
-import { USER_AUTHORIZE } from "../../utils/constants";
+import { getFCMToken } from "firebase_init";
 
 
 const Index = () => {
@@ -15,11 +15,14 @@ const Index = () => {
   const onFinish = async (fields) => {
 
     login(fields.username, fields.password, fields.remember).then(token => {
-      console.log(token)
       setToken(token)
 
       return getAccount()
-    }).then(account => {
+    })
+    .then(account => {
+
+      getFCMToken().then(response => console.log('registed new token!'))
+
       setAccount(account)
 
       notification.info({ message: 'login succeed', description: 'you will be redirect in seconds...'})
