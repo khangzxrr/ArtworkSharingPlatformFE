@@ -18,3 +18,7 @@ export { default as CreateRequest } from './createRequestPage'
 export { default as RequestProgressPage } from './requestProgressPage'
 
 export { default as ArtworksPage } from './artworksPage'
+
+export { default as CreateArtworkPage } from './createArtworkPage'
+
+export { default as MineArtworksPage } from './mineArtworksPage'

@@ -1,26 +1,27 @@
-import React from "react";
-import { Col, FloatButton, Row } from "antd";
-import { ArtworkList, RequestList } from "../../components";
+import React, { useEffect } from "react";
+import { Col, Row } from "antd";
+import { ArtworkList } from "../../components";
 import { useNavigate } from "react-router-dom";
-import {
-    PlusOutlined
-} from '@ant-design/icons';
-import { isContainCreatorRole } from "stores/authenticationStore";
+import { useArtworkListStore } from "stores/artworkListStore";
 
 const Index = () => {
+
+    const artworkListStore = useArtworkListStore()
+
+
+    useEffect(() => {
+        artworkListStore.fetchArtworks()
+    }, [])
 
     const navigate = useNavigate()
 
     return (
         <>
-            {
-                isContainCreatorRole() &&
-                <FloatButton onClick={() => navigate('/create-artwork')} icon={<PlusOutlined />} type="primary" style={{ right: 24 }} />
-            }
+            <h1>Public artworks</h1>
 
             <Row align={"middle"}>
-                <Col span={12} offset={6}>
-                    <ArtworkList />
+                <Col offset={6}>
+                    <ArtworkList totalCount={artworkListStore.totalCount} artworks={artworkListStore.artworks} />
                 </Col>
             </Row>
 
