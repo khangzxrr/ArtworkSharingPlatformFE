@@ -23,7 +23,6 @@ const Index = (props) => {
       console.log(error)
       notification.error({ message: 'Create new deal', description: 'Create a deal failed! please try again'})
     })
-    .finally(() => props.refreshPage())
 
   };
 
