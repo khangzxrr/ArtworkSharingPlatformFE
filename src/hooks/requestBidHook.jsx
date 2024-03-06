@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { creatorGetRequestBidsOfRequest, userGetRequestBidsOfRequest } from "services/requestBidService"
 import { isContainCreatorRole, isContainUserRole } from "stores/authenticationStore"
 
-export const useGetRequestBidsByRequestId = (requestId, pageState = 0) => {
+export const useGetRequestBidsByRequestId = (requestId, pageState) => {
     const [requestBids, setRequestBids] = useState([])
 
     useEffect(() => {
