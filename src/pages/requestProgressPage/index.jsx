@@ -112,10 +112,12 @@ const Index = () => {
             refreshPage()
         })
     }
-//choose bid higher wallet
+
     const onReceivingMessage = (msg) => {
-        notification.info({ message: 'request update', description: 'there is a new update about this request' })
-        refreshPage()
+        setTimeout(() => {
+            notification.info({ message: 'request update', description: 'there is a new update about this request' })
+            refreshPage()
+        }, 1000)
     }
 
 
@@ -145,7 +147,7 @@ const Index = () => {
                     <h1>Request information</h1>
                     <RequestForm request={request} requestBids={requestBids} />
                     {
-                        request.status !== FAILED && request.status !== ENDED && request.status !== ON_BIDING && request.status !== ON_PAYING_FIRST &&
+                        request.status !== FAILED && request.status !== ENDED && request.status !== ON_BIDING && request.status !== ON_PAYING_FIRST && isContainUserRole() &&
                         <Popconfirm
                             title="Refund and Close request"
                             description="Are you sure to close and refund this request ? (you CANNOT undo)"
