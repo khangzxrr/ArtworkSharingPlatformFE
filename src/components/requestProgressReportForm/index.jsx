@@ -70,7 +70,6 @@ const Index = (props) => {
         </Form.Item>
 
         <Form.Item>
-          {attachmentUrls.length}
           <FirebaseUploadMedia setAttachmentUrls={setAttachmentUrls} />
         </Form.Item>
 
