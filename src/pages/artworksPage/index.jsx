@@ -20,7 +20,7 @@ const Index = () => {
             <h1>Public artworks</h1>
 
             <Row align={"middle"}>
-                <Col offset={6}>
+                <Col >
                     <ArtworkList totalCount={artworkListStore.totalCount} artworks={artworkListStore.artworks} />
                 </Col>
             </Row>
