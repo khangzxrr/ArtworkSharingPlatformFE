@@ -1,6 +1,6 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import { ArtworkDetailPage, ArtworksPage, AuthenticationValidate, CreateArtworkPage, CreateRequest, Home, LoggedHome, Login, MineArtworksPage, Profile, Request, RequestProgressPage, Requests } from  '../pages';
+import { ArtworkDetailPage, ArtworksPage, AuthenticationValidate, CreateArtworkPage, CreateRequest, Home, LoggedHome, Login, MineArtworksPage, Profile, Request, RequestProgressPage, Requests, UpdateArtworkPage } from  '../pages';
 import React from "react";
 
 const Routers = createBrowserRouter([
@@ -55,6 +55,10 @@ const Routers = createBrowserRouter([
                 path: '/artworks/:artworkId',
                 element: <ArtworkDetailPage />
             },
+           {
+            path: '/artworks/:artworkId/update',
+            element: <UpdateArtworkPage />
+           }
         ]
     }
 ])

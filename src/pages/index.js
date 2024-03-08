@@ -24,3 +24,5 @@ export { default as CreateArtworkPage } from './createArtworkPage'
 export { default as MineArtworksPage } from './mineArtworksPage'
 
 export { default as ArtworkDetailPage} from './artworkDetailPage'
+
+export { default as UpdateArtworkPage } from './updateArtworkPage'
