@@ -20,7 +20,7 @@ export const useArtworkListStore = create(devtools(
             if (isContainCreatorRole()) {
                 response = await creatorGetPublicArtworks()
             }   
-            
+
             set({ artworks: response.list, totalCount: response.totalCount })
         }
     })
