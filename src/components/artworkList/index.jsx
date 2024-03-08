@@ -34,7 +34,7 @@ const Index = (props) => {
               hoverable
               title={`${item.name} by ${item.owner.login}`}
               className={styles.artwork}
-              onClick={() => navigate(`/artworks/${item.id}`)}
+              onClick={() => props.isMineArtwork ? navigate(`/artworks/${item.id}/update`) : navigate(`/artworks/${item.id}`)}
               cover={
                 <img
                   alt={item.name}
