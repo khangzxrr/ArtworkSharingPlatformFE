@@ -1,5 +1,17 @@
 import { userAxios } from "utils/axios"
 
+export const audienceGetArtworkById = async (artworkId) => {
+    const response = await userAxios.get(`/audience/artworks/${artworkId}`)
+
+    return response.data
+}
+
+export const creatorGetArtworkById = async (artworkId) => {
+    const response = await userAxios.get(`/creator/artworks/${artworkId}`)
+
+    return response.data
+}
+
 export const audienceGetPublicArtworks = async () => {
     const response = await userAxios.get('/audience/artworks')
 
