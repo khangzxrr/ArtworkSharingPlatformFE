@@ -1,19 +1,26 @@
-// @ts-nocheck
-
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Upload } from 'antd';
 
 
 import { PlusOutlined } from '@ant-design/icons';
 import { customUpload } from 'utils/upload';
+import { useUploadMediaStore } from 'stores/uploadMediaStore';
 
 const Index = (props) => {
 
-  const [imageUrls, setImageUrls] = useState([]);
+  const medias = useUploadMediaStore(state => state.medias)
+  const setMediaUrls = useUploadMediaStore(state => state.setMediaUrls)
+
+  const [fileList, setFileList] = useState([])
+
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
+
+
+  useEffect(() => {
+    setFileList(medias)
+  }, [medias])
 
   const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -28,10 +35,18 @@ const Index = (props) => {
   }
 
   const handleChange = ({ fileList: newFileList }) => {
-    console.log('handle change', newFileList)
-    setImageUrls(newFileList)
 
-    props.setAttachmentUrls(newFileList)
+    console.log('newFileList ', newFileList)
+
+    const successFileUrls = newFileList.filter(f => f.status == 'done').map(f => f.response)
+
+    // console.log('handle change', successFileUrls)
+
+    setFileList(newFileList)
+
+    if (successFileUrls.length == newFileList.length) {
+      setMediaUrls(successFileUrls)
+    }
 
   }
 
@@ -60,8 +75,9 @@ const Index = (props) => {
       <Upload
         name="avatar"
         listType="picture-card"
-        fileList={imageUrls}
+        fileList={fileList}
         showUploadList={true}
+        // @ts-ignore
         customRequest={customUpload}
         onPreview={handlePreview}
         beforeUpload={beforeUpload}
