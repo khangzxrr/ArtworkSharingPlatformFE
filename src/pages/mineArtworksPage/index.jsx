@@ -29,7 +29,7 @@ const Index = () => {
 
             <Row align={"middle"}>
                 <Col offset={6}>
-                    <ArtworkList artworks={mineArtworkListStore.artworks} totalCount={mineArtworkListStore.totalCount} />
+                    <ArtworkList isMineArtwork={true} artworks={mineArtworkListStore.artworks} totalCount={mineArtworkListStore.totalCount} />
                 </Col>
             </Row>
 
