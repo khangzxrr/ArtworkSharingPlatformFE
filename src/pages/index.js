@@ -22,3 +22,5 @@ export { default as ArtworksPage } from './artworksPage'
 export { default as CreateArtworkPage } from './createArtworkPage'
 
 export { default as MineArtworksPage } from './mineArtworksPage'
+
+export { default as ArtworkDetailPage} from './artworkDetailPage'
