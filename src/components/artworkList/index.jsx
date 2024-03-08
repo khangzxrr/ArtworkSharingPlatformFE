@@ -1,14 +1,15 @@
 
 
 import React from 'react';
-import { Badge, Card, List, Row } from 'antd';
-import { useNavigate } from "react-router-dom";
+import { Badge, Card, Divider, Flex, List, Row, Space } from 'antd';
+import { Link, useNavigate } from "react-router-dom";
 
 import { Typography } from 'antd';
 
 import styles from './index.module.css'
 import { dateFormat } from 'utils/dateFormat';
-
+import { Comment } from '@ant-design/compatible';
+import { LikeOutlined, CommentOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 
 const Index = (props) => {
@@ -28,14 +29,14 @@ const Index = (props) => {
         dataSource={props.artworks}
         rowKey={(item) => item.id}
         renderItem={(item, index) => (
-          <Badge.Ribbon text={item.category.name}>
+          <Badge.Ribbon text={item.category.name} className={styles.artwork}>
             <Card
               hoverable
               title={`${item.name} by ${item.owner.login}`}
-              className={styles.request}
-              onClick={() => navigate(`/requests/${item.id}`)}
+              className={styles.artwork}
+              onClick={() => navigate(`/artworks/${item.id}`)}
               cover={
-                <img 
+                <img
                   alt={item.name}
                   className={styles.artworkImage}
                   src={item.artworkAssets.filter(as => as.thumbnail === true)[0].media.url}
@@ -51,6 +52,22 @@ const Index = (props) => {
                 </Text>
 
               </Row>
+              <List
+                dataSource={item.artworkAssets}
+                renderItem={(item, index) => item.thumbnail ? null : (
+                  <List.Item>
+                    <Link to={item.media.url} target="_blank">{`attachment ${index}`}</Link>
+                  </List.Item>
+                )}
+              />
+              <Flex justify='space-around'>
+                <div>
+                  {item.commentsCount} <CommentOutlined />
+                </div>
+                <div>
+                  {item.likesCount} <LikeOutlined />
+                </div>
+              </Flex>
             </Card>
           </Badge.Ribbon>
 
