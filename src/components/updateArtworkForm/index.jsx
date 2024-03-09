@@ -98,7 +98,6 @@ const Index = () => {
           ]}
         >
           <Select
-            placeholder="Select a category"
             allowClear
           >
             {artworkCategoryStore.categories.map(category =>

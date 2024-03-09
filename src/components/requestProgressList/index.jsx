@@ -1,10 +1,8 @@
 
 
 import React, { } from 'react';
-import { Badge, Button, Card, Row, Space, Steps, Typography, notification } from 'antd';
+import { Badge, Card, Row, Space, Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import { isContainUserRole } from 'stores/authenticationStore';
-import { userAcceptRequestProgress, userRejectRequestProgress } from 'services/requestProgressService';
 import { dateFormat } from 'utils/dateFormat';
 import styles from './index.module.css'
 import { FIRST_PAYMENT, REPORT, SECOND_PAYMENT } from 'models/RequestProgressTypes';
@@ -12,47 +10,11 @@ import { FIRST_PAYMENT, REPORT, SECOND_PAYMENT } from 'models/RequestProgressTyp
 const Index = (props) => {
 
 
-
   const mapStatusToColor = (status) => {
     if (status === 'PENDING') return 'orange'
     if (status === 'SUCCEED') return 'green'
 
     return 'red'
-  }
-
-
-  const acceptRequestProgress = (requestProgressId) => {
-    userAcceptRequestProgress(props.requestId, requestProgressId)
-      .then(response => notification.info({ message: 'Update request progress', description: 'Accepted request progress report!' }))
-      .catch(error => {
-        console.log(error)
-        notification.error({ message: 'Update request progress', description: 'Fail to accept request progress report!' })
-      })
-      .finally(() => {
-        props.refreshPage()
-      })
-  }
-
-  const rejectRequestProgress = (requestProgressId) => {
-    userRejectRequestProgress(props.requestId, requestProgressId)
-      .then(response => notification.info({ message: 'Update request progress', description: 'Accepted request progress report!' }))
-      .catch(error => {
-        console.log(error)
-        notification.error({ message: 'Update request progress', description: 'Fail to accept request progress report!' })
-      })
-      .finally(() => {
-        props.refreshPage()
-      })
-  }
-
-  const mapReportActions = (requestProgress) => {
-
-    if (requestProgress.status === 'PENDING' && isContainUserRole()) {
-      return <Space direction='horizontal'>
-        <Button type='primary' onClick={() => acceptRequestProgress(requestProgress.id)}>Accept</Button>
-        <Button danger type='primary' onClick={() => rejectRequestProgress(requestProgress.id)}>Reject</Button>
-      </Space>
-    }
   }
 
   return (
@@ -104,7 +66,6 @@ const Index = (props) => {
                 {
                   rp.attachments.map((attach, index) => <Link target="_blank" to={attach.media.url}>attachment - {index+1}</Link>)
                 }
-                {mapReportActions(rp)}
               </Space>
 
 

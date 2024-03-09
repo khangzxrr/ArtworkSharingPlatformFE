@@ -1,17 +1,13 @@
-import { Button, Col, Divider, FloatButton, Form, Popconfirm, Row, Space, notification } from "antd";
-import React, { useState } from "react";
+import { Button, Col, Popconfirm, Row, Space, notification } from "antd";
+import React, { useEffect } from "react";
 import { RequestBidList, RequestChatBox, RequestForm, RequestProgressList, RequestProgressReportForm, RequestTimeline } from "../../components";
 import { useParams } from "react-router-dom";
-import { useGetRequestById } from "hooks/getRequestHook";
-import { useGetRequestBidsByRequestId } from "hooks/requestBidHook";
 
 import styles from './index.module.css'
-import { useGetRequestProgresses } from "hooks/requestProgressHook";
-import { useGetFirstPayment, useGetSecondPayment } from "hooks/requestPaymentHook";
 
 import { Typography } from 'antd';
 import { payFirstPayment, paySecondPayment } from "services/requestPaymentService";
-import { audienceRefund, userGetCurrentRequestStep } from "services/requestService";
+import { audienceRefund, getCurrentStepByRequestId } from "services/requestService";
 import { isContainCreatorRole, isContainUserRole, useAuthenticationStore } from "stores/authenticationStore";
 import { SELECTED_BID } from "models/RequestBidStatus";
 import { ENDED, FAILED, ON_BIDING, ON_PAYING_FIRST, ON_PAYING_SECOND, ON_REPORTING } from "models/RequestType";
@@ -21,34 +17,52 @@ import { BASE_WEBSOCKET_URL } from 'utils/constants';
 import { FIRST_PAYMENT } from "models/RequestProgressTypes";
 import moment from "moment";
 import { translateErrorToNotify } from "utils/errorHandle";
+import { useRequestDetailStore } from "stores/requestDetailStore";
+import { useRequestProgressStore } from "stores/requestProgressStore";
+import { useRequestPaymentStore } from "stores/requestPaymentStore";
+import { useRequestBidStore } from "stores/requestBidStore";
 
 
 const { Text } = Typography;
 
 const Index = () => {
 
-    const [pageState, setPageState] = useState(0)
-
-    const refreshPage = () => {
-
-        const newPageState = pageState + 1
-        setPageState(newPageState)
-
-        console.log('refresh page ', newPageState)
-    }
 
     const { requestId } = useParams()
 
-    const request = useGetRequestById(requestId, pageState)
-    const requestBids = useGetRequestBidsByRequestId(requestId, pageState)
-    const requestProgresses = useGetRequestProgresses(requestId, pageState)
+    const requestDetailStore = useRequestDetailStore()
+    const request = useRequestDetailStore(state => state.request)
 
-    const firstPayment = useGetFirstPayment(requestId, pageState)
-    const secondPayment = useGetSecondPayment(requestId, pageState)
+    const requestBidStore = useRequestBidStore()
+    const requestBids = useRequestBidStore(state => state.requestBids)
+
+    const requestProgressStore = useRequestProgressStore()
+    const requestProgresses = useRequestProgressStore(state => state.requestProgresses)
+
+    const requestPaymentStore = useRequestPaymentStore()
+    const firstPayment = useRequestPaymentStore(state => state.firstPayment)
+    const secondPayment = useRequestPaymentStore(state => state.secondPayment)
 
     const account = useAuthenticationStore(state => state.account)
 
     const accessToken = useAuthenticationStore(state => state.accessToken)
+
+    useEffect(() => {
+        requestDetailStore.fetchRequestById(requestId)
+    }, [requestId])
+
+    useEffect(() => {
+        requestBidStore.fetchRequestBidsByRequestId(requestId)
+    }, [requestId, request])
+
+    useEffect(() => {
+        requestProgressStore.fetchRequestProgressesByRequestId(requestId)
+    }, [requestId, request])
+
+    useEffect(() => {
+        requestPaymentStore.fetchFirstPaymentByRequestId(requestId)
+        requestPaymentStore.fetchSecondPaymentByRequestId(requestId)
+    }, [requestId, request])
 
     function displayPaymentFormCondition() {
         return (request.status === ON_PAYING_FIRST || request.status === ON_PAYING_SECOND) &&
@@ -89,7 +103,7 @@ const Index = () => {
     function pay() {
         console.log('pay')
 
-        userGetCurrentRequestStep(requestId).then(response => {
+        getCurrentStepByRequestId(requestId).then(response => {
             if (response.currentState === 'FIRST_PAYMENT') {
                 return payFirstPayment(requestId)
             }
@@ -109,14 +123,14 @@ const Index = () => {
             console.log(error)
             notification.error({ message: 'Request payment', description: 'payment failed!\nPlease check your wallet amount and try again\nor you are already paid' })
         }).finally(() => {
-            refreshPage()
+            requestDetailStore.fetchRequestById(requestId)
         })
     }
 
     const onReceivingMessage = (msg) => {
         setTimeout(() => {
             notification.info({ message: 'request update', description: 'there is a new update about this request' })
-            refreshPage()
+            requestDetailStore.fetchRequestById(requestId)
         }, 1000)
     }
 
@@ -124,7 +138,7 @@ const Index = () => {
     const refund = () => {
         audienceRefund(requestId).then(response => {
             notification.success({ message: 'refund', description: `refund successfully! days passed: ${response.dayPassed}, refund amount: ${response.refundAmount}$`, duration: 0 },)
-            refreshPage()
+            return requestDetailStore.fetchRequestById(requestId)
         })
             .catch(error => translateErrorToNotify(error))
     }
@@ -192,14 +206,14 @@ const Index = () => {
 
                 <Col span={5} className={styles.component}>
                     <h1>Request progress list</h1>
-                    <RequestProgressList refreshPage={refreshPage} requestId={requestId} requestProgresses={requestProgresses} />
+                    <RequestProgressList requestId={requestId} requestProgresses={requestProgresses} />
                 </Col>
 
                 {
                     displayRequestReportFormCondition() &&
                     <Col span={6} className={styles.component}>
                         <h1>Upload request progress</h1>
-                        <RequestProgressReportForm refreshPage={refreshPage} requestId={requestId} />
+                        <RequestProgressReportForm requestId={requestId} />
                     </Col>
                 }
 

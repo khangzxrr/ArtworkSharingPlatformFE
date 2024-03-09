@@ -6,17 +6,18 @@ import { Button, Form, Input, Space, notification } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { creatorCreateRequestProgress } from 'services/requestProgressService';
 import { FirebaseUploadMedia } from 'components';
+import { useUploadMediaStore } from 'stores/uploadMediaStore';
 
 const Index = (props) => {
 
   const [form] = Form.useForm();
 
-  const [attachmentUrls, setAttachmentUrls] = useState([])
+  const uploadMediaStore = useUploadMediaStore()
 
   const onFinish = (values) => {
     console.log('Success:', values, props.requestId);
 
-    const urls = attachmentUrls.map(attach => attach.response)
+    const urls = uploadMediaStore.mapMediasToUrls()
 
     creatorCreateRequestProgress(props.requestId, values.description, urls)
     .then(response => {
@@ -26,15 +27,12 @@ const Index = (props) => {
       console.log(err)
       notification.error({ message: 'Create request progresss', description: 'Error while create request progress, please try again'})
     })
-    .finally(() => props.refreshPage())
     
 
     form.resetFields()
   };
 
-  const makeSureAllUploadMediaFinished = () => {
-    return attachmentUrls.find(u => u.status === 'uploading') !== undefined
-  }
+
 
   return (
     <>
@@ -70,11 +68,11 @@ const Index = (props) => {
         </Form.Item>
 
         <Form.Item>
-          <FirebaseUploadMedia setAttachmentUrls={setAttachmentUrls} />
+          <FirebaseUploadMedia />
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" disabled={makeSureAllUploadMediaFinished()}>
+          <Button type="primary" htmlType="submit" disabled={uploadMediaStore.loading}>
             Submit report
           </Button>
         </Form.Item>
