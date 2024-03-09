@@ -1,4 +1,4 @@
-import { userAxios } from "../utils/axios";
+import { bothRolesGet, userAxios } from "../utils/axios";
 
 
 export const creatorGetRequests = async () => {
@@ -14,14 +14,8 @@ export const userGetRequests = async () => {
     return { list: response.data, totalCount: response.headers['x-total-count'] };
 }
 
-export const creatorGetRequest = async (requestId) => {
-    const response = await userAxios.get(`/creator/requests/${requestId}`)
-
-    return response.data
-}
-
-export const userGetRequest = async (requestId) => {
-    const response = await userAxios.get(`/audience/requests/${requestId}`)
+export const getRequestById = async (requestId) => {
+    const response = await bothRolesGet(`requests/${requestId}`)
 
     return response.data
 }
@@ -36,20 +30,14 @@ export const userCreateRequest = async (title, description) => {
     return response.data;
 }
 
-export const userGetCurrentRequestStep = async (requestId) => {
-    const response = await userAxios.get(`/audience/requests/${requestId}/current-step`)
+export const getCurrentStepByRequestId =  async (requestId) => { 
+    const response = await bothRolesGet(`requests/${requestId}/current-step`)
 
     return response.data
 }
 
 export const audienceRefund = async (requestId) => {
     const response = await userAxios.post(`/audience/requests/${requestId}/refund`)
-
-    return response.data
-}
-
-export const creatorGetCurrentRequestStep = async (requestId) => {
-    const response = await userAxios.get(`/creator/requests/${requestId}/current-step`)
 
     return response.data
 }

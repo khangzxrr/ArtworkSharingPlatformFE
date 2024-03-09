@@ -1,30 +1,8 @@
-import { userAxios } from "../utils/axios"
-
-export const userGetAllRequestProgressByRequestId = async (requestId) => {
-    const response = await userAxios.get(`/audience/requests/${requestId}/request-progresses`)
-
-    return response.data
-}
-
-export const userAcceptRequestProgress = async (requestId, requestProgressId) => {
-    const response = await userAxios.post(`/audience/requests/${requestId}/request-progresses/${requestProgressId}/reports/accept`)
-
-    return response.data
-}
-
-export const userRejectRequestProgress = async (requestId, requestProgressId) => {
-    const response = await userAxios.post(`/audience/requests/${requestId}/request-progresses/${requestProgressId}/reports/reject`)
-
-    return response.data
-}
+import { bothRolesGet, userAxios } from "../utils/axios"
 
 
-
-
-
-
-export const creatorGetAllRequestProgressByRequestId = async (requestId) => {
-    const response = await userAxios.get(`/creator/requests/${requestId}/request-progresses`)
+export const getRequestProgressesByRequestId = async (requestId) => {
+    const response = await bothRolesGet(`requests/${requestId}/request-progresses`)
 
     return response.data
 }

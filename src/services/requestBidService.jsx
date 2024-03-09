@@ -1,19 +1,14 @@
-import { userAxios } from "../utils/axios"
+import { bothRolesGet, userAxios } from "../utils/axios"
 
-export const creatorGetRequestBidsOfRequest = async (requestId) =>  {
-    const response = await userAxios.get(`/creator/request/${requestId}/request-bids?sort=id,desc`)
-
-    return response.data
-}
-
-export const userGetRequestBidsOfRequest = async (requestId) => {
-    const response = await userAxios.get(`/audience/requests/${requestId}/request-bids?sort=id,desc`)
+export const getRequestBidsByRequestId = async (requestId) => {
+    const response = await bothRolesGet(`requests/${requestId}/request-bids?sort=id,desc`)
 
     return response.data
 }
+
 
 export const creatorCreateRequestBid = async (requestId, description, price, duration) => {
-    const response = await userAxios.post(`creator/request/${requestId}/request-bids`, {
+    const response = await userAxios.post(`creator/requests/${requestId}/request-bids`, {
         description,
         price,
         duration
