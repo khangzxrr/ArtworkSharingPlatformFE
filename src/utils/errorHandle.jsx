@@ -2,6 +2,12 @@ import { notification } from "antd"
 
 
 export const translateErrorToNotify = (error) => {
+
+    if (error.response.data.message === 'error.UserAlreadyLikeArtwork') {
+        notification.error({ message: 'Error', description: 'You already like this artwork!'})
+        return
+    }
+
     if (error.response.data.message === 'error.RequestIsNotOnCorrectState') {
         notification.error({ message: 'Error', description: 'Request is not in correct state to perform action'})
         return
