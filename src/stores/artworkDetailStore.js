@@ -2,9 +2,11 @@ import { getArtworkById, updateArtworkById } from "services/artworkService";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { isContainCreatorRole, isContainUserRole } from "./authenticationStore";
+import { sellArtwork } from "services/artworkSellingService";
 
 export const useArtworkDetailStore = create(devtools(
     (set, get) => ({
+        loading: true,
         artwork: {
             id: undefined,
             category: {
@@ -23,18 +25,49 @@ export const useArtworkDetailStore = create(devtools(
         },
         updateArtwork: async (categoryId, name, description, visibility, thumbnailUrl, otherAssetUrls) => {
 
+            set({ loading: true })
+
             const artworkId = get().artwork.id
-            
+
             const response = await updateArtworkById(artworkId, categoryId, name, description, visibility, thumbnailUrl, otherAssetUrls)
 
-            set({ artwork: response })
+            set({ artwork: response, loading: false })
 
             return response
         },
-        fetchArtwork: async (artworkId) => {
-            let response = await getArtworkById(artworkId)
+        sellArtwork: async (type, sellingDuration, expectedSellingPrice = 0) => {
+            set({ loading: true })
 
-            set({ artwork: response })
+            try {
+                const response = await sellArtwork(get().artwork.id, type, sellingDuration, expectedSellingPrice)
+
+                await get().fetchArtwork(get().artwork.id)
+
+                return response
+            } catch (exception) {
+                throw (exception)
+            }
+            finally {
+                set({ loading: false })
+            }
+
+        },
+        fetchArtwork: async (artworkId) => {
+            set({ loading: true })
+
+            try {
+                const response = await getArtworkById(artworkId)
+
+                set({ artwork: response })
+
+                return response
+
+            } catch (exception) {
+                throw (exception)
+            } finally {
+                set({ loading: false })
+            }
         }
+
     })
 ))
