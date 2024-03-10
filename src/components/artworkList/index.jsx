@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Badge, Card, Divider, Flex, List, Row, Space } from 'antd';
+import { Badge, Button, Card, Flex, List, Row } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 
 import { Typography } from 'antd';
@@ -18,7 +18,6 @@ const Index = (props) => {
 
   const artworkListStore = useArtworkListStore()
 
-
   return (
     <>
       <List
@@ -33,6 +32,11 @@ const Index = (props) => {
         renderItem={(item, index) => (
           <Badge.Ribbon text={item.category.name} className={styles.artwork}>
             <Card
+              actions={props.isMineArtwork ?
+                [
+                  <Button onClick={() => navigate(`${item.id}/sellings/create`)}>Sell this artwork</Button>
+                  // <Button >Buy this artwork</Button>
+                ] : []}
               title={`${item.name} by ${item.owner.login}`}
               className={styles.artwork}
               cover={
@@ -45,9 +49,6 @@ const Index = (props) => {
               }
             >
               <Row>
-                {/* <Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size="large">
-                  {item.user.login}
-                </Avatar> */}
                 <Text className={styles.description}>
                   "{item.description}" - {dateFormat(item.createdDate)}
                 </Text>
@@ -70,9 +71,9 @@ const Index = (props) => {
                 </div>
                 <div
                   style={{ fontSize: '20px' }}
-                  onClick={() =>  item.userLikedThisArtwork ?  artworkListStore.unlikeArtworkById(item.id) : artworkListStore.likeArtworkById(item.id)}
+                  onClick={() => item.userLikedThisArtwork ? artworkListStore.unlikeArtworkById(item.id) : artworkListStore.likeArtworkById(item.id)}
                 >
-                  {item.likesCount} <LikeOutlined style={{ color: item.userLikedThisArtwork ? '#08c' : '#000' }}/>
+                  {item.likesCount} <LikeOutlined style={{ color: item.userLikedThisArtwork ? '#08c' : '#000' }} />
                 </div>
               </Flex>
             </Card>
