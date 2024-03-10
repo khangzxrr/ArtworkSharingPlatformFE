@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Col, FloatButton, Row } from "antd";
-import { ArtworkList, RequestList } from "../../components";
+import { ArtworkList } from "../../components";
 import { useNavigate } from "react-router-dom";
 import {
     PlusOutlined
@@ -29,7 +29,7 @@ const Index = () => {
 
             <Row align={"middle"}>
                 <Col offset={6}>
-                    <ArtworkList isMineArtwork={true} artworks={mineArtworkListStore.artworks} totalCount={mineArtworkListStore.totalCount} />
+                    <ArtworkList isMineArtwork={true} artworks={mineArtworkListStore.artworks} />
                 </Col>
             </Row>
 
