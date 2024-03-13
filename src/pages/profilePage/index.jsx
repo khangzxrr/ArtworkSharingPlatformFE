@@ -77,11 +77,6 @@ const Index = () => {
                   justifyContent: "flex-end",
                 }}
               >
-                <Radio.Group defaultValue="a">
-                  <Radio.Button value="a">OVERVIEW</Radio.Button>
-                  <Radio.Button value="b">TEAMS</Radio.Button>
-                  <Radio.Button value="c">PROJECTS</Radio.Button>
-                </Radio.Group>
               </Col>
             </Row>
           }
