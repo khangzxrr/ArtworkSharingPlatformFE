@@ -8,6 +8,7 @@ import React, { } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { ArtworkDirectBuyConfirmBox } from "components";
 import { useAuthenticationStore } from "stores/authenticationStore";
+import { AUCTION, AUCTION_EXPECTED_PRICE, DIRECT } from "models/ArtworkSellingType";
 
 const { Text } = Typography;
 
@@ -45,8 +46,14 @@ const Index = (props) => {
               <h2>Sale method: {props.artwork.onGoingArtworkSelling.type}</h2>
 
               {
-                account.login != props.artwork.owner.login &&
+                account.login != props.artwork.owner.login && props.artwork.onGoingArtworkSelling.type === DIRECT &&
                 <ArtworkDirectBuyConfirmBox artwork={props.artwork} />
+              }
+
+              {
+                props.showAuctionPage &&
+                (props.artwork.onGoingArtworkSelling.type === AUCTION || props.artwork.onGoingArtworkSelling.type === AUCTION_EXPECTED_PRICE) &&
+                <Button onClick={() => { navigate(`/artworks/${props.artwork.id}/sellings/${props.artwork.onGoingArtworkSelling.id}/auction`) }} >Go to auction page</Button>
               }
 
             </Flex>

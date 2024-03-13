@@ -14,7 +14,8 @@ export const useArtworkDetailStore = create(devtools(
             owner: {
                 login: ''
             },
-            artworkAssets: []
+            artworkAssets: [],
+            onGoingArtworkSelling: null,
         },
         getAssets: (artwork) => {
             return artwork.artworkAssets.filter(as => as.thumbnail === false)

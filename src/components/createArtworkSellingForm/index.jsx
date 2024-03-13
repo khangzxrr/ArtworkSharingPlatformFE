@@ -67,7 +67,6 @@ const Index = () => {
             onChange={(value) => onSellingTypeChange(value)}
           >
             <Option value={DIRECT}>Direct selling</Option>
-            <Option value={AUCTION}>Auction</Option>
             <Option value={AUCTION_EXPECTED_PRICE}>Auction with expected price</Option>
           </Select>
         </Form.Item>
@@ -84,14 +83,14 @@ const Index = () => {
               },
             ]}
           >
-            <InputNumber />
+            <InputNumber prefix="$" min={1} max={99999999}/>
           </Form.Item>)
         }
 
         {
           artworkSellingType !== DIRECT &&
           <Form.Item
-            label="Selling duration (days)"
+            label="Selling duration"
             name="sellingDuration"
             rules={[
               {
@@ -100,7 +99,7 @@ const Index = () => {
               },
             ]}
           >
-            <InputNumber />
+            <InputNumber prefix="day" min={1} max={99999999}/>
           </Form.Item>
         }
 

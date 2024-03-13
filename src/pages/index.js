@@ -28,3 +28,5 @@ export { default as ArtworkDetailPage} from './artworkDetailPage'
 export { default as UpdateArtworkPage } from './updateArtworkPage'
 
 export { default as CreateArtworkSellingPage } from './createSellingArtworkPage'
+
+export { default as ArtworkAuctionPage } from './artworkAuctionPage'

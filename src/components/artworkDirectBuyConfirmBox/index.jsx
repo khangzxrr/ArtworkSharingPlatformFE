@@ -45,7 +45,7 @@ const Index = (props) => {
     }
     else
       if (props.artwork.onGoingArtworkSelling.type === AUCTION || props.onGoingArtworkSelling.type === AUCTION_EXPECTED_PRICE) {
-
+        notification.error({ message: "Artwork buying", description: "This artwork is in auction, please go to auction page to buy" })
       }
 
   }

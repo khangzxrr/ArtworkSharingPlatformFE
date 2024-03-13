@@ -22,7 +22,11 @@ const Index = (props) => {
         dataSource={props.artworks}
         rowKey={(item) => item.id}
         renderItem={(item, index) => (
-          <ArtworkComponent loading={false} artwork={item} showSellButton={props.showSellButton} />
+          <ArtworkComponent
+            loading={false}
+            artwork={item}
+            showSellButton={props.showSellButton}
+            showAuctionPage={props.showAuctionPage} />
 
         )}
       />
