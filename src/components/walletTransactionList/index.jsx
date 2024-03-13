@@ -30,6 +30,7 @@ const Index = (props) => {
         if (type == 'REFUND') color = 'orange'
         if (type === 'BUY') color = 'blue'
         if (type == 'WITHDRAW_REQUEST_FIRST_PAYMENT_TEMP') color = 'red'
+        if (type == 'DIRECT_BUY_ARTWORK') color = 'blue'
         return (
           <Tag color={color}>
             {type}
@@ -45,7 +46,9 @@ const Index = (props) => {
   ]
   
   return (
-    <Table dataSource={props.walletTransactions} columns={columns}>
+    <Table dataSource={props.walletTransactions} 
+// @ts-ignore
+    columns={columns}>
 
     </Table>
   );
