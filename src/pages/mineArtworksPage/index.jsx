@@ -28,8 +28,8 @@ const Index = () => {
             <h1>My artworks</h1>
 
             <Row align={"middle"}>
-                <Col offset={6}>
-                    <ArtworkList isMineArtwork={true} artworks={mineArtworkListStore.artworks} />
+                <Col span={10}>
+                    <ArtworkList isMineArtwork={true} artworks={mineArtworkListStore.artworks} showSellButton={true} showAuctionPage={true} />
                 </Col>
             </Row>
 

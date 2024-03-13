@@ -17,8 +17,8 @@ const Index = () => {
             <h1>Public artworks</h1>
 
             <Row align={"middle"}>
-                <Col >
-                    <ArtworkList  artworks={artworkListStore.artworks} totalCount={artworkListStore.totalCount} />
+                <Col span={12}>
+                    <ArtworkList  artworks={artworkListStore.artworks} totalCount={artworkListStore.totalCount} showSellButton={false} showAuctionPage={true} />
                 </Col>
             </Row>
 

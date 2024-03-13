@@ -64,7 +64,7 @@ const Index = () => {
                         <Link to="/mine/artworks" />
                     </Menu.Item>
                     <Menu.Item>
-                        <span>Requests</span>
+                        <span>My requests</span>
                         <Link to="/requests" />
                     </Menu.Item>
                     <Menu.Item>
