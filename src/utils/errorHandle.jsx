@@ -2,6 +2,21 @@ import { notification } from "antd"
 
 
 export const translateErrorToNotify = (error) => {
+    
+    if (error.response.data.message === 'error.walletAmountIsNotEnough') {
+        notification.error({ message: 'Error', description: 'Your wallet amount is not enough to perform this action!'})
+        return
+    }
+
+    if (error.response.data.message === 'error.artworkBelongToUser') {
+        notification.error({ message: 'Error', description: 'You cannot buy your own artwork!'})
+        return
+    }
+
+    if (error.response.data.message === 'error.validation') {
+        notification.error({ message: 'Error', description: 'Please check all fields, it must be valid before you start!'})
+        return
+    }
 
     if (error.response.data.message === 'error.UserAlreadyLikeArtwork') {
         notification.error({ message: 'Error', description: 'You already like this artwork!'})

@@ -9,3 +9,9 @@ export const sellArtwork = async (artworkId, type, sellingDuration, expectedSell
 
     return response.data
 }
+
+export const buyArtwork = async (id, artworkId) => {
+    const response = await bothRolesPost(`artworks/${artworkId}/sellings/${id}/direct-buy`)
+
+    return response.data
+}
