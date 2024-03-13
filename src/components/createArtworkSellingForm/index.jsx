@@ -11,12 +11,11 @@ import { translateErrorToNotify } from 'utils/errorHandle';
 const Index = () => {
 
 
-  const [artworkSellingType, setArtworkSellingType] = useState('')
+  const [artworkSellingType, setArtworkSellingType] = useState(DIRECT)
 
-  const sellArtwork = useArtworkDetailStore(state => state.sellArtwork) 
+  const sellArtwork = useArtworkDetailStore(state => state.sellArtwork)
 
   const [form] = Form.useForm()
-
 
   const navigate = useNavigate()
 
@@ -25,11 +24,12 @@ const Index = () => {
     console.log('Success:', values);
 
     sellArtwork(values.artworkSellingType, values.sellingDuration, values.expectedSellingPrice)
-    .then(response => {
-      console.log(response)
-      notification.success({ message: 'Artwork selling', description: 'Create artwork selling successfully! please keep track your selling state'})
-    })
-    .catch(error => translateErrorToNotify(error))
+      .then(response => {
+        console.log(response)
+        notification.success({ message: 'Artwork selling', description: 'Create artwork selling successfully! please keep track your selling state' })
+        navigate('/mine/artworks')
+      })
+      .catch(error => translateErrorToNotify(error))
   };
 
 
@@ -43,13 +43,10 @@ const Index = () => {
         form={form}
         name="artworkSellingForm"
         labelCol={{
-          span: 8,
+          span: 9,
         }}
         wrapperCol={{
           span: 16,
-        }}
-        style={{
-          maxWidth: 600,
         }}
         onFinish={onFinish}
         autoComplete="off"
@@ -57,6 +54,7 @@ const Index = () => {
         <Form.Item
           name="artworkSellingType"
           label="Selling type"
+          initialValue={DIRECT}
 
           rules={[
             {
@@ -75,7 +73,7 @@ const Index = () => {
         </Form.Item>
 
         {
-          artworkSellingType === AUCTION_EXPECTED_PRICE &&
+          artworkSellingType !== AUCTION &&
           (<Form.Item
             label="Expected selling price"
             name="expectedSellingPrice"
@@ -90,18 +88,21 @@ const Index = () => {
           </Form.Item>)
         }
 
-        <Form.Item
-          label="Selling duration (days)"
-          name="sellingDuration"
-          rules={[
-            {
-              required: true,
-              message: 'Please input selling duration!',
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
+        {
+          artworkSellingType !== DIRECT &&
+          <Form.Item
+            label="Selling duration (days)"
+            name="sellingDuration"
+            rules={[
+              {
+                required: true,
+                message: 'Please input selling duration!',
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+        }
 
 
         <Form.Item
