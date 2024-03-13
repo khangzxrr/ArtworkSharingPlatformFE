@@ -1,0 +1,10 @@
+.container {
+    min-height: 100vh;
+    background-image: url("https://wallpapers.com/images/featured/art-dajgwkpkb3im2q3u.jpg");
+    background-size: cover;
+    background-position: center;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

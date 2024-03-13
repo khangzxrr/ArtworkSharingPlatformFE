@@ -54,3 +54,7 @@ export const getAccount = async () => {
     }
 
 }
+
+export const registerService = async () => {
+    
+  }

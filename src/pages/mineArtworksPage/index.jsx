@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, FloatButton, Row } from "antd";
+import { Col, FloatButton, Row, Card } from "antd";
 import { ArtworkList } from "../../components";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,23 +19,33 @@ const Index = () => {
     }, [])
 
     return (
-        <>
-            {
-                isContainCreatorRole() &&
-                <FloatButton onClick={() => navigate('/artworks/create')} icon={<PlusOutlined />} type="primary" style={{ right: 24 }} />
-            }
-
-            <h1>My artworks</h1>
-
-            <Row align={"middle"}>
-                <Col offset={6}>
-                    <ArtworkList isMineArtwork={true} artworks={mineArtworkListStore.artworks} />
-                </Col>
-            </Row>
-
-        </>
-
-    )
+      <>
+        {isContainCreatorRole() && (
+          <FloatButton
+            onClick={() => navigate("/artworks/create")}
+            icon={<PlusOutlined />}
+            type="primary"
+            style={{ right: 24 }}
+          />
+        )}
+        <Card
+          bordered={false}
+          className="header-solid mb-24"
+          title={
+            <>
+              <h2 className="font-semibold">My artworks</h2>
+            </>
+          }
+        >
+          <Row>
+            <ArtworkList
+              isMineArtwork={true}
+              artworks={mineArtworkListStore.artworks}
+            />
+          </Row>
+        </Card>
+      </>
+    );
 }
 
 export default Index

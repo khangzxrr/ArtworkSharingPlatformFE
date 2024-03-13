@@ -1,6 +1,6 @@
 
 import { createBrowserRouter } from "react-router-dom";
-import { ArtworkDetailPage, ArtworksPage, AuthenticationValidate, CreateArtworkPage, CreateArtworkSellingPage, CreateRequest, Home, LoggedHome, Login, MineArtworksPage, Profile, Request, RequestProgressPage, Requests, UpdateArtworkPage } from '../pages';
+import { ArtworkDetailPage, ArtworksPage, AuthenticationValidate, CreateArtworkPage, CreateArtworkSellingPage, CreateRequest, Home, LoggedHome, Login, MineArtworksPage, Profile, Request, RequestProgressPage, Requests, UpdateArtworkPage, Register } from '../pages';
 import React from "react";
 
 const Routers = createBrowserRouter([
@@ -11,6 +11,10 @@ const Routers = createBrowserRouter([
     {
         path: '/login',
         element: <Login />,
+    },
+    {
+        path: '/register',
+        element: <Register />,
     },
     {
         element: <AuthenticationValidate />,

@@ -21,3 +21,4 @@ export { default as UpdateArtworkForm } from './updateArtworkForm'
 export { default as ThumbnailUploader } from  './thumbnailUploader'
 export { default as ArtworkComponent } from './artworkComponent'
 export { default as CreateArtworkSellingForm } from './createArtworkSellingForm'
+export { default as RegisterForm } from "./registerForm"

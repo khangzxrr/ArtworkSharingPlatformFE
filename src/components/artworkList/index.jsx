@@ -34,7 +34,7 @@ const Index = (props) => {
             <Card
               actions={props.isMineArtwork ?
                 [
-                  <Button onClick={() => navigate(`${item.id}/sellings/create`)}>Sell this artwork</Button>
+                  <Button type='primary' onClick={() => navigate(`${item.id}/sellings/create`)}>Sell this artwork</Button>
                   // <Button >Buy this artwork</Button>
                 ] : []}
               title={`${item.name} by ${item.owner.login}`}
