@@ -1,7 +1,6 @@
 import { getArtworkById, updateArtworkById } from "services/artworkService";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { isContainCreatorRole, isContainUserRole } from "./authenticationStore";
 import { sellArtwork } from "services/artworkSellingService";
 
 export const useArtworkDetailStore = create(devtools(
@@ -35,7 +34,7 @@ export const useArtworkDetailStore = create(devtools(
 
             return response
         },
-        sellArtwork: async (type, sellingDuration, expectedSellingPrice = 0) => {
+        sellArtwork: async (type, sellingDuration = 0, expectedSellingPrice = 0) => {
             set({ loading: true })
 
             try {
