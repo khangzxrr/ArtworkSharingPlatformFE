@@ -9,10 +9,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArtworkDirectBuyConfirmBox } from "components";
 import { useAuthenticationStore } from "stores/authenticationStore";
 import { AUCTION, AUCTION_EXPECTED_PRICE, DIRECT } from "models/ArtworkSellingType";
+import { useArtworkListStore } from "stores/artworkListStore";
 
 const { Text } = Typography;
 
 const Index = (props) => {
+
+  const likeArtwork = useArtworkListStore(state => state.likeArtworkById)
+  const unlikeArtwork = useArtworkListStore(state => state.unlikeArtworkById)
 
   const account = useAuthenticationStore(state => state.account)
 
@@ -78,12 +82,12 @@ const Index = (props) => {
             <div
               style={{ fontSize: '20px' }}
             >
-              {props.artwork.commentsCount} <CommentOutlined />
+              {props.artwork.commentsCount} <CommentOutlined onClick={() => navigate(`/artworks/${props.artwork.id}`)} />
             </div>
             <div
               style={{ fontSize: '20px' }}
             >
-              {props.artwork.likesCount} <LikeOutlined style={{ color: props.artwork.userLikedThisArtwork ? '#08c' : '#000' }} />
+              {props.artwork.likesCount} <LikeOutlined style={{ color: props.artwork.userLikedThisArtwork ? '#08c' : '#000' }} onClick={() => props.artwork.userLikedThisArtwork ? unlikeArtwork(props.artwork.id) : likeArtwork(props.artwork.id)} />
             </div>
           </Flex>
         </Card>

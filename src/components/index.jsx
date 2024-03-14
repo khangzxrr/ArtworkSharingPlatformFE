@@ -24,3 +24,4 @@ export { default as CreateArtworkSellingForm } from './createArtworkSellingForm'
 export { default as ArtworkDirectBuyConfirmBox } from './artworkDirectBuyConfirmBox'
 export { default as ArtworkSellingBidForm } from './artworkSellingBidForm'
 export { default as ArtworkSellingBidList } from './artworkSellingBidList'
+export { default as RegisterForm } from "./registerForm"
