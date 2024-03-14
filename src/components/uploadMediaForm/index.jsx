@@ -31,6 +31,7 @@ const Index = (props) => {
     });
 
   const beforeUpload = (file) => {
+    
     //console.log('beforeUpload', file)
   }
 
