@@ -30,3 +30,5 @@ export { default as UpdateArtworkPage } from './updateArtworkPage'
 export { default as CreateArtworkSellingPage } from './createSellingArtworkPage'
 
 export { default as ArtworkAuctionPage } from './artworkAuctionPage'
+
+export { default as Register } from "./register";

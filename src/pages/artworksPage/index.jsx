@@ -1,30 +1,37 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Card } from "antd";
 import { ArtworkList } from "../../components";
 import { useArtworkListStore } from "stores/artworkListStore";
 
 const Index = () => {
 
-    const artworkListStore = useArtworkListStore()
+  const artworkListStore = useArtworkListStore()
 
 
-    useEffect(() => {
-        artworkListStore.fetchArtworks()
-    }, [])
+  useEffect(() => {
+    artworkListStore.fetchArtworks()
+  }, [])
 
-    return (
-        <>
-            <h1>Public artworks</h1>
-
-            <Row align={"middle"}>
-                <Col span={12}>
-                    <ArtworkList  artworks={artworkListStore.artworks} totalCount={artworkListStore.totalCount} showSellButton={false} showAuctionPage={true} />
-                </Col>
-            </Row>
-
-        </>
-
-    )
+  return (
+    <>
+      <Row align={"middle"}>
+        <Col></Col>
+      </Row>
+      <Card
+        bordered={false}
+        className="header-solid mb-24"
+        title={
+          <>
+            <h2 className="font-semibold">Public artworks</h2>
+          </>
+        }
+      >
+        <Row>
+          <ArtworkList artworks={artworkListStore.artworks} totalCount={artworkListStore.totalCount} showSellButton={false} showAuctionPage={true} />
+        </Row>
+      </Card>
+    </>
+  );
 }
 
 export default Index

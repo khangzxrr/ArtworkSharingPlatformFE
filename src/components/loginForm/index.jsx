@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./index.module.css";
 import { getAccount, login } from "../../services/authenticationService";
 import { setAccount, setToken, useAuthenticationStore } from "../../stores/authenticationStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { getFCMToken } from "firebase_init";
 
 
@@ -68,6 +68,9 @@ const Index = () => {
               Login
             </Button>
           </Form.Item>
+          <p>
+          You are not a member yet? <Link to="/register">Register now</Link>
+        </p>
         </Form>
       </Card>
   );

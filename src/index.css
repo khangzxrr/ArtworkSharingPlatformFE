@@ -11,3 +11,83 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@media (min-width: 768px){
+  .profile-nav-bg {
+    margin-top: -87.8px;
+}
+.card-profile-head {
+    margin: -53px 24px 24px;
+}
+
+
+}
+.profile-nav-bg {
+    height: 300px;
+    margin-top: 5px;
+    border-radius: 12px;
+    box-shadow: 0 20px 27px rgb(0 0 0/5%);
+    background-size: cover;
+    background-position: 50%;
+}
+.layout-dashboard .ant-card {
+    border-radius: 12px;
+    box-shadow: 0 20px 27px rgb(0 0 0/5%);
+}
+.layout-profile .ant-card-head {
+    padding: 0 16px;
+}
+.card-profile-head .ant-card-head {
+    border-bottom: 0;
+    padding: 0 16px;
+}
+.ant-card-body {
+    padding: 16px;
+}
+.ant-card-head-title p {
+    font-weight: 600;
+    color: #8c8c8c;
+    margin-bottom: 0;
+}
+.avatar-info p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8c8c8c;
+    margin: 0;
+}
+.card-profile-head .ant-card-head .avatar-info h4 {
+    font-size: 24px;
+}
+.card-profile-head .ant-card-head .avatar-info {
+    margin-left: 16px;
+}
+.card-profile-head .ant-card-head .ant-avatar {
+    box-shadow: 0 5px 10px rgb(0 0 0/12%);
+    border-radius: 8px;
+    margin: 0;
+}
+.ant-avatar-group .ant-avatar {
+    border: 1px solid #fff;
+}
+.ant-avatar-group {
+    align-items: center;
+}
+.ant-card-head-title {
+    display: inline-block;
+    flex: 1 1;
+    padding: 16px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.m-0 {
+    margin: 0;
+}
+.font-semibold {
+    font-weight: 600;
+}
+.ant-card-head-title h6 {
+    margin-bottom: 0;
+}
+.h6, h6 {
+    font-size: 16px;
+}

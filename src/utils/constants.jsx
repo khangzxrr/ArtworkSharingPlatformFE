@@ -1,8 +1,9 @@
 
-const BASE_URL = 'http://localhost:8080/api'
-//const BASE_URL = 'https://artwork-sharing-platform.id.vn/api'
+//const BASE_URL = 'http://localhost:8080/api'
+const BASE_URL = 'https://artwork-sharing-platform.id.vn/api'
 
-const BASE_WEBSOCKET_URL = 'http://localhost:8080/websocket/artwork'
+//const BASE_WEBSOCKET_URL = 'http://localhost:8080/websocket/artwork'
+const BASE_WEBSOCKET_URL = 'https://artwork-sharing-platform.id.vn/websocket/artwork'
 
 const USER_AUTHORIZE = 'ROLE_USER'
 
