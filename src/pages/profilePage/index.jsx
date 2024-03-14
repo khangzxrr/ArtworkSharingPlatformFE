@@ -48,14 +48,14 @@ const Index = () => {
 
                     >
 
-                        <Form.Item label="Firstname" name="firstName">
-                            <Input />
+                        <Form.Item label="Firstname" name="firstName" >
+                            <Input disabled/>
                         </Form.Item>
                         <Form.Item label="Lastname" name="lastName">
-                            <Input />
+                            <Input disabled />
                         </Form.Item>
                         <Form.Item label="Email" name="email">
-                            <Input />
+                            <Input disabled />
                         </Form.Item>
                     </Form>
 
