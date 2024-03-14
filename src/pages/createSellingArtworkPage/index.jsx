@@ -21,11 +21,16 @@ const Index = () => {
     }, [artworkId])
 
     useEffect(() => {
-        if (artwork.onGoingArtworkSelling !== null) {
+
+        if (artwork.id == undefined) {
+            return
+        }
+
+        if (artwork.onGoingArtworkSelling != null) {
             notification.error({ message: 'artwork selling', description:'This artwork has on-going selling, please check again'})
             navigate('/mine/artworks')
         }
-    }, [artwork])
+    }, [])
 
     return (
         <Row className={styles.requestForm}>
