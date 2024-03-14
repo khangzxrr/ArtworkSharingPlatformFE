@@ -11,12 +11,15 @@ import { beforeUploadMustBeImageFile, customUpload } from 'utils/upload';
 import { FirebaseUploadMedia } from 'components';
 import { creatorCreateArtwork } from 'services/artworkService';
 import { translateErrorToNotify } from 'utils/errorHandle';
+import { useUploadMediaStore } from 'stores/uploadMediaStore';
 
 const Index = () => {
 
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
-  const [attachments, setAttachment] = useState([])
+  const medias = useUploadMediaStore(state => state.medias)
+  const mediaLoading = useUploadMediaStore(state => state.loading)
+  
 
   const navigate = useNavigate()
 
@@ -26,9 +29,6 @@ const Index = () => {
     artworkCategoryStore.fetchCategories()
   }, [])
 
-  const makeSureAllUploadMediaFinished = () => {
-    return attachments.find(u => u.status === 'uploading') !== undefined
-  }
 
   const getBase64 = (img, callback) => {
     const reader = new FileReader();
@@ -53,9 +53,9 @@ const Index = () => {
   }
 
   const onFinish = (values) => {
-    console.log('Success:', values);
+    console.log('Success:', values, medias);
     
-    creatorCreateArtwork(values.artworkCategory, values.artworkTitle, values.artworkDescription, values.visibility, values.artworkThumbnail.file.response, attachments.map(a => a.response))
+    creatorCreateArtwork(values.artworkCategory, values.artworkTitle, values.artworkDescription, values.visibility, values.artworkThumbnail.file.response, medias.map(a => a.response))
     .then(response => {
       message.success(`Created ${response.name} artwork!`)
 
@@ -199,7 +199,7 @@ const Index = () => {
         <Form.Item
           label="Artwork attachments"
           name="artworkAttachments">
-          <FirebaseUploadMedia setAttachmentUrls={setAttachment} />
+          <FirebaseUploadMedia />
         </Form.Item>
 
         <Form.Item
@@ -208,7 +208,7 @@ const Index = () => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit" disabled={loading || makeSureAllUploadMediaFinished()}>
+          <Button type="primary" htmlType="submit" disabled={loading || mediaLoading}>
             Create a new artwork
           </Button>
         </Form.Item>
