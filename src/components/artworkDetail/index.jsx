@@ -123,7 +123,7 @@ const Index = () => {
 
             />)
         }
-        <Button onClick={() => loadMoreComments()} disabled={commentTotalCount == comments.length}>Load more comments</Button>
+        {/* <Button onClick={() => loadMoreComments()} disabled={commentTotalCount == comments.length}>Load more comments</Button> */}
 
 
       </Col>
